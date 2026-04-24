@@ -1,3 +1,4 @@
+import { createClient } from '@supabase/supabase-js'
 import './style.css'
 import Lenis from 'lenis'
 import gsap from 'gsap'
@@ -129,3 +130,63 @@ window.addEventListener('scroll', () => {
     }
   })
 })
+// Supabase Configuration
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+// Form Handling
+const contactForm = document.querySelector('.contact-form form')
+const submitBtn = document.querySelector('.submit-btn-text')
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    
+    // UI State: Loading
+    const originalBtnText = submitBtn.innerHTML
+    submitBtn.innerHTML = 'Sending...'
+    submitBtn.style.opacity = '0.7'
+    submitBtn.disabled = true
+
+    const formData = new FormData(contactForm)
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message')
+    }
+
+    try {
+      const { error } = await supabase
+        .from('inquiries')
+        .insert([data])
+
+      if (error) throw error
+
+      // Success State
+      submitBtn.innerHTML = 'Success <i data-lucide="check" style="width: 16px;"></i>'
+      lucide.createIcons() // Re-init icons for the new checkmark
+      contactForm.reset()
+      
+      setTimeout(() => {
+        submitBtn.innerHTML = originalBtnText
+        submitBtn.style.opacity = '1'
+        submitBtn.disabled = false
+        lucide.createIcons()
+      }, 5000)
+
+    } catch (err) {
+      console.error('Error:', err.message)
+      submitBtn.innerHTML = 'Error. Try again.'
+      submitBtn.style.color = '#ff4d4d'
+      
+      setTimeout(() => {
+        submitBtn.innerHTML = originalBtnText
+        submitBtn.style.opacity = '1'
+        submitBtn.disabled = false
+        submitBtn.style.color = ''
+        lucide.createIcons()
+      }, 3000)
+    }
+  })
+}
