@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hayzed Casual | Case Study — Adam Olayinka</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;500;600&family=Syne:wght@400;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+      .case-study-hero {
+        padding: 220px 0 120px;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .case-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 120px;
+        padding: 120px 0;
+      }
+      .case-image-full {
+        width: 100%;
+        aspect-ratio: 16/9;
+        overflow: hidden;
+        margin-bottom: 120px;
+      }
+      .case-image-full img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .case-section h2 {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+      }
+      .case-section p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-color);
+        max-width: 100%;
+      }
+      .next-step {
+        padding: 150px 0;
+        text-align: center;
+        background: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <header id="navbar">
+        <div class="island">
+          <a href="/" class="island-logo">ADAM OLAYINKA</a>
+          <nav>
+            <ul class="nav-links">
+              <li><a href="/">Back to Work</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section class="case-study-hero">
+          <div class="container">
+            <span class="label reveal">Fashion / Boutique</span>
+            <h1 class="reveal-text" style="font-size: clamp(3rem, 8vw, 6rem);">Hayzed Casual</h1>
+            <p class="reveal" style="font-size: 1.5rem; max-width: 800px; margin-top: 3rem; color: var(--text-color);">Designed to elevate brand perception through a minimal, structured digital experience that reflects the quality of the product.</p>
+          </div>
+        </section>
+
+        <section class="case-content">
+          <div class="container">
+            <div class="case-image-full reveal">
+              <img src="/project_hayzed_new.png" alt="Hayzed Casual Interface">
+            </div>
+
+            <div class="case-grid">
+              <div class="case-section reveal">
+                <h2>The Problem</h2>
+                <p>The brand had a strong identity, but the website didn’t reflect it. The experience felt basic, which reduced its perceived value.</p>
+              </div>
+              <div class="case-section reveal">
+                <h2>The Approach</h2>
+                <p>The goal was to create a clean, editorial experience that reflects the brand’s aesthetic. Every element was designed to feel intentional, minimal, and refined.</p>
+              </div>
+            </div>
+
+            <div class="case-section reveal" style="padding-bottom: 120px;">
+              <h2>The Result</h2>
+              <p style="font-size: 2rem; line-height: 1.4; font-family: var(--font-serif); max-width: 900px;">The final result presents the brand with clarity and confidence, creating a cohesive experience that positions the brand at a higher level.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="next-step reveal">
+          <div class="container">
+            <h3 style="font-size: 2rem; margin-bottom: 3rem; font-family: var(--font-serif);">Want something like this for your brand?</h3>
+            <a href="/#contact" class="btn-underline" style="font-size: 1.2rem;">Start a Project <i data-lucide="arrow-right"></i></a>
+          </div>
+        </section>
+      </main>
+
+      <footer id="footer-adam">
+        <div class="container">
+          <div class="footer-wrap">
+            <div class="footer-left">
+              <p>Adam Olayinka — Available for select fashion projects</p>
+              <p style="opacity: 0.5; margin-top: 1rem;">&copy; 2026. All rights reserved.</p>
+            </div>
+            <div class="footer-right">
+              <a href="mailto:adamolayinka52@gmail.com">Email</a>
+              <a href="#">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
