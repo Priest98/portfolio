@@ -130,6 +130,59 @@ window.addEventListener('scroll', () => {
     }
   })
 })
+
+// Hamburger Menu Logic
+const menuToggle = document.getElementById('menu-toggle')
+const menuClose = document.getElementById('menu-close')
+const mobileMenu = document.getElementById('mobile-menu')
+const mobileLinks = document.querySelectorAll('.mobile-nav-links a')
+
+if (menuToggle && mobileMenu) {
+  menuToggle.addEventListener('click', () => {
+    mobileMenu.classList.add('active')
+    document.body.style.overflow = 'hidden'
+  })
+
+  const closeMenu = () => {
+    mobileMenu.classList.remove('active')
+    document.body.style.overflow = ''
+  }
+
+  menuClose.addEventListener('click', closeMenu)
+  mobileLinks.forEach(link => link.addEventListener('click', closeMenu))
+}
+
+// Sticky Header Hide on Scroll
+let lastScroll = 0
+const navbar = document.getElementById('navbar')
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset
+  if (currentScroll <= 0) {
+    navbar.classList.remove('hidden')
+    return
+  }
+
+  if (currentScroll > lastScroll && !navbar.classList.contains('hidden')) {
+    // Scroll Down
+    navbar.classList.add('hidden')
+  } else if (currentScroll < lastScroll && navbar.classList.contains('hidden')) {
+    // Scroll Up
+    navbar.classList.remove('hidden')
+  }
+  lastScroll = currentScroll
+})
+
+// Optimize GSAP for Mobile
+ScrollTrigger.config({
+  limitCallbacks: true,
+  ignoreMobileResize: true
+})
+
+if (window.innerWidth < 1025) {
+  // Simplify or remove heavy animations for mobile if needed
+  // For now, GSAP is efficient, but we can reduce complexity
+}
 // Supabase Configuration
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY

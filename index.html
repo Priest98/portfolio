@@ -21,7 +21,7 @@
       <header id="navbar">
         <div class="island">
           <a href="#" class="island-logo">ADAM OLAYINKA</a>
-          <nav>
+          <nav class="nav-desktop">
             <ul class="nav-links">
               <li><a href="#hero" class="active">What I Do</a></li>
               <li><a href="#about">About</a></li>
@@ -29,6 +29,21 @@
               <li><a href="#contact">Contact</a></li>
             </ul>
           </nav>
+          <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+            <i data-lucide="menu"></i>
+          </button>
+        </div>
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu" id="mobile-menu">
+          <button class="menu-close" id="menu-close">
+            <i data-lucide="x"></i>
+          </button>
+          <ul class="mobile-nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
         </div>
       </header>
 
@@ -65,7 +80,7 @@
               </div>
               
               <div class="hero-image-wrap">
-                <img src="/hero_adam.png" alt="Adam Olayinka" class="hero-img">
+                <img src="/hero_adam.png" alt="Adam Olayinka" class="hero-img" loading="lazy">
               </div>
             </div>
           </div>
@@ -82,15 +97,15 @@
           <div class="marquee-container">
             <div class="marquee-content">
               <!-- Double the items for seamless loop -->
+              <span class="brand-item">Fiatstyle</span>
               <span class="brand-item">Hayzedcasual</span>
               <span class="brand-item">Sewphie Stitches</span>
               <span class="brand-item">Adamsbespoke</span>
+              <span class="brand-item">Fiatstyle</span>
               <span class="brand-item">Hayzedcasual</span>
               <span class="brand-item">Sewphie Stitches</span>
               <span class="brand-item">Adamsbespoke</span>
-              <span class="brand-item">Hayzedcasual</span>
-              <span class="brand-item">Sewphie Stitches</span>
-              <span class="brand-item">Adamsbespoke</span>
+              <span class="brand-item">Fiatstyle</span>
               <span class="brand-item">Hayzedcasual</span>
               <span class="brand-item">Sewphie Stitches</span>
               <span class="brand-item">Adamsbespoke</span>
@@ -116,7 +131,7 @@
               
               <div class="about-visual reveal">
                 <div class="abstract-card">
-                  <img src="/fashion_mockup_bw.png" alt="Luxury Fashion Website Mockup">
+                  <img src="/fashion_mockup_bw.png" alt="Luxury Fashion Website Mockup" loading="lazy">
                 </div>
               </div>
             </div>
@@ -133,9 +148,24 @@
             </div>
             
             <div class="projects-grid">
+              <!-- New Fiatstyle Card -->
+              <a href="#" class="project-card reveal">
+                <div class="project-visual">
+                  <img src="/project_fiatstyle.png" alt="Fiatstyle Fashion Academy" loading="lazy">
+                  <div class="project-overlay">
+                    <span class="view-text">Visit Site <i data-lucide="external-link" style="width: 14px; margin-left: 5px;"></i></span>
+                  </div>
+                </div>
+                <div class="project-info">
+                  <span class="category">Fashion / Education</span>
+                  <h3>Fiatstyle Academy</h3>
+                  <p class="project-desc" style="margin-top: 1rem; font-size: 0.9rem; max-width: 90%;">Designed an editorial digital experience for a luxury fashion academy, focusing on high-end couture education.</p>
+                </div>
+              </a>
+
               <a href="https://sewphiestitches.com/" target="_blank" rel="noopener" class="project-card reveal">
                 <div class="project-visual">
-                  <img src="/project_sewphie_new.png" alt="Sewphie Stitches">
+                  <img src="/project_sewphie_new.png" alt="Sewphie Stitches" loading="lazy">
                   <div class="project-overlay">
                     <span class="view-text">Visit Site <i data-lucide="external-link" style="width: 14px; margin-left: 5px;"></i></span>
                   </div>
@@ -143,13 +173,13 @@
                 <div class="project-info">
                   <span class="category">Fashion / Luxury</span>
                   <h3>Sewphie Stitches</h3>
-                  <p class="project-desc" style="margin-top: 1rem; font-size: 0.9rem; max-width: 90%;">Refined the brand’s online presence with a clean, editorial design that aligns with its identity and improves perceived value.</p>
+                  <p class="project-desc" style="margin-top: 1rem; font-size: 0.9rem; max-width: 90%;">Refined the brand’s online presence with a clean, editorial design that aligns with its identity.</p>
                 </div>
               </a>
 
               <a href="https://hayzed-omega.vercel.app/" target="_blank" rel="noopener" class="project-card reveal offset">
                 <div class="project-visual">
-                  <img src="/project_hayzed_new.png" alt="Hayzed Casual">
+                  <img src="/project_hayzed_new.png" alt="Hayzed Casual" loading="lazy">
                   <div class="project-overlay">
                     <span class="view-text">Visit Site <i data-lucide="external-link" style="width: 14px; margin-left: 5px;"></i></span>
                   </div>
@@ -157,7 +187,7 @@
                 <div class="project-info">
                   <span class="category">Fashion / Boutique</span>
                   <h3>Hayzed Casual</h3>
-                  <p class="project-desc" style="margin-top: 1rem; font-size: 0.9rem; max-width: 90%;">Designed a structured, minimal experience that presents the brand more clearly and enhances how it’s seen.</p>
+                  <p class="project-desc" style="margin-top: 1rem; font-size: 0.9rem; max-width: 90%;">Designed a structured, minimal experience that presents the brand more clearly.</p>
                 </div>
               </a>
             </div>
@@ -227,6 +257,11 @@
           </div>
         </div>
       </footer>
+
+      <a href="#contact" class="mobile-contact-sticky">
+        <i data-lucide="message-circle" style="width: 18px;"></i>
+        Contact Me
+      </a>
     </div>
     <script type="module" src="/src/main.js"></script>
     <script>
