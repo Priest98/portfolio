@@ -98,7 +98,7 @@ h2 {
 
 .label {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.4em;
   color: var(--text-muted);
@@ -156,9 +156,9 @@ p {
 .nav-links a {
   text-decoration: none;
   color: var(--island-text);
-  font-size: 7.5px; /* Increased by ~20% from 6px */
+  font-size: 11px; /* Increased for readability */
   text-transform: uppercase;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.25em;
   font-weight: 400;
   opacity: 0.4;
   transition: opacity 0.4s ease;
@@ -660,10 +660,8 @@ section {
   color: var(--bg-color);
 }
 
-/* Reveal State */
+/* Reveal State - Adjusted for visibility */
 .reveal, .reveal-text, .reveal-sub {
-  opacity: 0;
-  transform: translateY(30px);
   transition: var(--transition-luxury);
 }
 

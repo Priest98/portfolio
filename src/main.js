@@ -133,7 +133,13 @@ window.addEventListener('scroll', () => {
 // Supabase Configuration
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+let supabase = null
+if (supabaseUrl && supabaseAnonKey) {
+  supabase = createClient(supabaseUrl, supabaseAnonKey)
+} else {
+  console.warn('Supabase credentials missing. Contact form will not work.')
+}
 
 // Form Handling
 const contactForm = document.querySelector('.contact-form form')
@@ -157,6 +163,10 @@ if (contactForm) {
     }
 
     try {
+      if (!supabase) {
+        throw new Error('Supabase client not initialized')
+      }
+
       const { error } = await supabase
         .from('inquiries')
         .insert([data])
