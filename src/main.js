@@ -402,6 +402,14 @@ if (interactiveForm) {
       const { error } = await supabase.from('inquiries').insert([formData])
       if (error) throw error
 
+      // Construct WhatsApp Message
+      const waMessage = `Hello Adam, my name is ${formData.name}.
+I'm interested in a ${formData.project_type} project.
+Email: ${formData.email}
+Details: ${formData.message}`
+      
+      const waUrl = `https://wa.me/2349136599914?text=${encodeURIComponent(waMessage)}`
+
       updateAssistant('success')
       gsap.to(interactiveForm, {
         opacity: 0,
@@ -411,12 +419,17 @@ if (interactiveForm) {
           interactiveForm.innerHTML = `
             <div class="success-message" style="padding: 2rem 0;">
               <h3 style="font-size: 2rem; margin-bottom: 1rem;">Thank You.</h3>
-              <p style="margin-bottom: 3rem;">Your inquiry has been sent. I will be in touch shortly.</p>
-              <a href="#projects" class="btn-underline">Back to Work <i data-lucide="arrow-right" style="width: 14px;"></i></a>
+              <p style="margin-bottom: 3rem;">Your inquiry has been recorded. Redirecting you to WhatsApp to finalize the details...</p>
+              <a href="${waUrl}" target="_blank" class="btn-underline">Open WhatsApp Manually <i data-lucide="arrow-right" style="width: 14px;"></i></a>
             </div>
           `
           lucide.createIcons()
           gsap.from('.success-message', { opacity: 0, y: 20, duration: 0.6 })
+          
+          // Auto-redirect after a short delay
+          setTimeout(() => {
+            window.open(waUrl, '_blank')
+          }, 1500)
         }
       })
 
