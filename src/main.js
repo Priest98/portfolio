@@ -186,6 +186,89 @@ if (contactSection) {
   })
 }
 
+// 8. INTELLIGENT SYSTEMS (NEW)
+const intelligentSystems = () => {
+  // A. Dynamic Scarcity Engine
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  const now = new Date()
+  const currentMonth = months[now.getMonth()]
+  const nextMonth = months[(now.getMonth() + 1) % 12]
+  
+  document.querySelectorAll('.current-month').forEach(el => el.textContent = currentMonth)
+  document.querySelectorAll('.next-month').forEach(el => el.textContent = nextMonth)
+
+  // B. Returning Visitor Personalization
+  const hasVisited = localStorage.getItem('adam_portfolio_visited')
+  if (hasVisited) {
+    const headline = document.getElementById('hero-headline')
+    const subtext = document.getElementById('hero-subtext')
+    if (headline) headline.innerHTML = `Welcome back. Ready to build your <span class="italic">Global Authority?</span>`
+    if (subtext) subtext.textContent = "You've seen the work. Now let's transform your brand into an elite digital experience."
+  }
+  localStorage.setItem('adam_portfolio_visited', 'true')
+
+  // C. Interactive Builder
+  const aestheticBtns = document.querySelectorAll('.aesthetic-btn')
+  const focusBtns = document.querySelectorAll('.focus-btn')
+  const previewCanvas = document.getElementById('preview-canvas')
+
+  aestheticBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      aestheticBtns.forEach(b => b.classList.remove('active'))
+      btn.classList.add('active')
+      
+      const style = btn.dataset.style
+      previewCanvas.className = `preview-${style}`
+      
+      gsap.from('#preview-canvas > *', {
+        opacity: 0,
+        y: 10,
+        stagger: 0.1,
+        duration: 0.6,
+        ease: 'power2.out'
+      })
+    })
+  })
+
+  // D. Smart Floating CTA
+  const smartCta = document.getElementById('smart-cta')
+  const pillText = smartCta?.querySelector('.pill-text')
+  
+  if (smartCta) {
+    ScrollTrigger.create({
+      trigger: 'body',
+      start: 'top -400',
+      onEnter: () => smartCta.classList.add('active'),
+      onLeaveBack: () => smartCta.classList.remove('active')
+    })
+
+    // Context-aware messaging
+    const updatePill = (text) => {
+      if (pillText.textContent === text) return
+      gsap.to(pillText, {
+        opacity: 0,
+        y: -10,
+        duration: 0.3,
+        onComplete: () => {
+          pillText.textContent = text
+          gsap.to(pillText, { opacity: 1, y: 0, duration: 0.3 })
+        }
+      })
+    }
+
+    ScrollTrigger.create({
+      trigger: '#projects',
+      start: 'top center',
+      end: 'bottom center',
+      onEnter: () => updatePill('Want results like these?'),
+      onLeaveBack: () => updatePill("Let's build yours"),
+      onLeave: () => updatePill('Secure your slot')
+    })
+  }
+}
+
+intelligentSystems()
+
 // Smooth Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
@@ -270,7 +353,7 @@ if (supabaseUrl && supabaseAnonKey) {
   supabase = createClient(supabaseUrl, supabaseAnonKey)
 }
 
-// Interactive Form Logic
+// Interactive Form Logic (Updated for 6 steps)
 const interactiveForm = document.getElementById('interactive-form')
 if (interactiveForm) {
   const steps = interactiveForm.querySelectorAll('.form-step')
@@ -280,6 +363,8 @@ if (interactiveForm) {
   const projectTypeInput = document.getElementById('project-type')
   const budgetOptions = interactiveForm.querySelectorAll('.budget-option')
   const budgetInput = document.getElementById('project-budget')
+  const timelineOptions = interactiveForm.querySelectorAll('.timeline-option')
+  const timelineInput = document.getElementById('project-timeline')
   
   let currentStep = 1
   
@@ -288,7 +373,8 @@ if (interactiveForm) {
     2: "Nice to meet you! Now, what's the best email to reach you?",
     3: "Got it. What kind of project are we looking at?",
     4: "Helpful. What's the planned investment for this?",
-    5: "Almost there. Any specific details you want to share?",
+    5: "Speed matters in fashion. What's the timeline?",
+    6: "Almost there. Any specific details you want to share?",
     success: "Message received. Let’s build something great."
   }
 
@@ -302,14 +388,6 @@ if (interactiveForm) {
         gsap.to(assistantText, { opacity: 1, y: 0, duration: 0.3 })
       }
     })
-    
-    gsap.to('.assistant-avatar', {
-      scale: 1.15,
-      duration: 0.2,
-      yoyo: true,
-      repeat: 1,
-      ease: 'power2.out'
-    })
   }
 
   const goToStep = (nextStep) => {
@@ -319,7 +397,6 @@ if (interactiveForm) {
     if (!nextEl) return
 
     const tl = gsap.timeline()
-    
     tl.to(currentEl, {
       opacity: 0,
       y: -20,
@@ -332,36 +409,13 @@ if (interactiveForm) {
         if (nextInput) nextInput.focus()
       }
     })
-    
-    tl.fromTo(nextEl, 
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }
-    )
-    
+    tl.fromTo(nextEl, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6 })
     currentStep = nextStep
   }
 
   nextBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const currentInput = steps[currentStep-1].querySelector('input, textarea')
-      if (currentInput && !currentInput.checkValidity()) {
-        currentInput.reportValidity()
-        return
-      }
-      
-      if (currentStep < steps.length) {
-        goToStep(currentStep + 1)
-      }
-    })
-  })
-
-  interactiveForm.querySelectorAll('input:not([type="hidden"])').forEach(input => {
-    input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault()
-        const nextBtn = input.closest('.form-step').querySelector('.next-step-btn')
-        if (nextBtn && !nextBtn.disabled) nextBtn.click()
-      }
+      if (currentStep < steps.length) goToStep(currentStep + 1)
     })
   })
 
@@ -370,32 +424,31 @@ if (interactiveForm) {
       typeCards.forEach(c => c.classList.remove('selected'))
       card.classList.add('selected')
       projectTypeInput.value = card.dataset.value
-      
-      const nextBtn = card.closest('.form-step').querySelector('.next-step-btn')
-      if (nextBtn) nextBtn.disabled = false
-      
-      gsap.from(card, { scale: 0.95, duration: 0.3, ease: 'back.out(2)' })
-      setTimeout(() => { if (currentStep === 3) goToStep(4) }, 600)
+      goToStep(4)
     })
   })
 
   budgetOptions.forEach(option => {
+    if (option.classList.contains('timeline-option')) return
     option.addEventListener('click', () => {
       budgetOptions.forEach(o => o.classList.remove('selected'))
       option.classList.add('selected')
       budgetInput.value = option.dataset.value
-      
-      const nextBtn = option.closest('.form-step').querySelector('.next-step-btn')
-      if (nextBtn) nextBtn.disabled = false
-      
-      gsap.from(option, { scale: 0.98, duration: 0.2 })
-      setTimeout(() => { if (currentStep === 4) goToStep(5) }, 600)
+      goToStep(5)
+    })
+  })
+
+  timelineOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      timelineOptions.forEach(o => o.classList.remove('selected'))
+      option.classList.add('selected')
+      timelineInput.value = option.dataset.value
+      goToStep(6)
     })
   })
 
   interactiveForm.addEventListener('submit', async (e) => {
     e.preventDefault()
-    
     const submitBtn = interactiveForm.querySelector('button[type="submit"]')
     submitBtn.innerHTML = 'Sending...'
     submitBtn.disabled = true
@@ -405,11 +458,12 @@ if (interactiveForm) {
       email: document.getElementById('email').value,
       project_type: document.getElementById('project-type').value,
       budget: document.getElementById('project-budget').value,
+      timeline: document.getElementById('project-timeline').value,
       message: document.getElementById('message').value
     }
 
     const waMessage = `Hello Adam, my name is ${formData.name}.
-I'm interested in a ${formData.project_type} project.
+I'm interested in a ${formData.project_type} project starting ${formData.timeline}.
 Target Investment: ${formData.budget}
 Email: ${formData.email}
 Details: ${formData.message}`
@@ -419,36 +473,18 @@ Details: ${formData.message}`
     updateAssistant('success')
     gsap.to(interactiveForm, {
       opacity: 0,
-      scale: 0.95,
-      duration: 0.6,
       onComplete: () => {
-        interactiveForm.innerHTML = `
-          <div class="success-message" style="padding: 2rem 0;">
-            <h3 style="font-size: 2rem; margin-bottom: 1rem;">Thank You.</h3>
-            <p style="margin-bottom: 3rem;">Your inquiry has been recorded. Redirecting you to WhatsApp to finalize the details...</p>
-            <a href="${waUrl}" target="_blank" class="btn-underline">Open WhatsApp Manually <i data-lucide="arrow-right" style="width: 14px;"></i></a>
-          </div>
-        `
-        lucide.createIcons()
-        gsap.from('.success-message', { opacity: 0, y: 20, duration: 0.6 })
-        
-        setTimeout(() => {
-          window.open(waUrl, '_blank')
-        }, 1200)
+        interactiveForm.innerHTML = `<div class="success-message"><h3>Inquiry Received.</h3><p>Redirecting to WhatsApp...</p></div>`
+        setTimeout(() => window.open(waUrl, '_blank'), 1000)
       }
     })
 
-    try {
-      if (supabase) {
-        const { error } = await supabase.from('inquiries').insert([{
-          name: formData.name,
-          email: formData.email,
-          message: `[Project: ${formData.project_type}] [Budget: ${formData.budget}] ${formData.message}`
-        }])
-        if (error) console.warn('Supabase Insert Error:', error.message)
-      }
-    } catch (err) {
-      console.warn('Supabase Error:', err.message)
+    if (supabase) {
+      await supabase.from('inquiries').insert([{
+        name: formData.name,
+        email: formData.email,
+        message: `[Type: ${formData.project_type}] [Budget: ${formData.budget}] [Timeline: ${formData.timeline}] ${formData.message}`
+      }])
     }
   })
 }
@@ -465,56 +501,25 @@ const conversionSystem = () => {
 
   const showPopup = () => {
     if (popupTriggered || isFormSubmitted || sessionStorage.getItem('conversion_popup_shown')) return
-    
     if (popup) {
       popup.classList.add('show')
       popupTriggered = true
       sessionStorage.setItem('conversion_popup_shown', 'true')
-      
-      gsap.from(popup.querySelector('.exit-popup-content'), {
-        scale: 0.95,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power3.out'
-      })
+      gsap.from(popup.querySelector('.exit-popup-content'), { scale: 0.95, opacity: 0, duration: 0.6 })
     }
   }
 
   if (popup) {
-    // 1. Time-based trigger (25 seconds)
     setTimeout(showPopup, 25000)
-
-    // 2. Scroll-based trigger (50%)
     window.addEventListener('scroll', () => {
       const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
       if (scrollPercent > 50) showPopup()
     })
-
-    // 3. Exit Intent trigger
-    document.addEventListener('mouseleave', (e) => {
-      if (e.clientY < 0) showPopup()
-    })
-
-    // Close logic
+    document.addEventListener('mouseleave', (e) => { if (e.clientY < 0) showPopup() })
     closeBtn?.addEventListener('click', () => popup.classList.remove('show'))
-    popup.addEventListener('click', (e) => {
-      if (e.target === popup) popup.classList.remove('show')
-    })
-    
-    // CTA clicks
     if (primaryBtn) primaryBtn.addEventListener('click', () => popup.classList.remove('show'))
     if (secondaryBtn) secondaryBtn.addEventListener('click', () => popup.classList.remove('show'))
   }
-
-  // Returning Visitor Logic
-  const hasVisited = localStorage.getItem('adam_portfolio_visited')
-  if (hasVisited) {
-    const heroPara = document.querySelector('.hero-text p')
-    if (heroPara) {
-      heroPara.textContent = "Welcome back. Ready to elevate your brand perception today? Let's pick up where we left off."
-    }
-  }
-  localStorage.setItem('adam_portfolio_visited', 'true')
 }
 
 conversionSystem()

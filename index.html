@@ -18,6 +18,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;500;600&family=Syne:wght@400;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tracking Pixels & Analytics (Placeholders) -->
+    <!-- Meta Pixel -->
+    <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', 'YOUR_PIXEL_ID');fbq('track', 'PageView');</script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "YOUR_CLARITY_ID");</script>
   </head>
   <body>
     <div id="app">
@@ -68,31 +74,57 @@
               <div class="hero-main">
                 <div class="hero-stats reveal">
                   <div class="stat-box">
-                    <span class="num">10</span>
-                    <span class="label">Curated Projects</span>
+                    <span class="num">15+</span>
+                    <span class="label">Brands Transformed</span>
                   </div>
                   <div class="stat-box">
-                    <span class="num">03</span>
-                    <span class="label">Global Clients</span>
+                    <span class="num">02</span>
+                    <span class="label">Slots Left for <span class="current-month">June</span></span>
                   </div>
                 </div>
                 <div class="hero-availability reveal">
                   <span class="dot"></span> 
-                  <span class="avail-text">Limited Availability for 2026</span>
+                  <span class="avail-text">Now Booking for <span class="next-month">July</span></span>
                 </div>
                 
                 <div class="hero-text">
-                  <h1 class="reveal-text">I build high-end websites that turn fashion brands into <span class="italic">Global Authorities.</span></h1>
-                  <p class="reveal">Attract elite clients, increase your perceived value, and scale your sales with a digital presence designed for the high-end market.</p>
+                  <h1 class="reveal-text" id="hero-headline">I build high-end websites that turn fashion brands into <span class="italic">Global Authorities.</span></h1>
+                  <p class="reveal" id="hero-subtext">Attract elite clients, increase your perceived value, and scale your sales with a digital presence designed for the high-end market.</p>
                   <div class="hero-btns">
                     <a href="#contact" class="primary-cta-btn reveal">Start Your Project <i data-lucide="sparkles"></i></a>
-                    <a href="#projects" class="btn-underline reveal">See Results <i data-lucide="arrow-right"></i></a>
+                    <a href="#intro" class="btn-underline reveal">Watch Intro <i data-lucide="play-circle"></i></a>
                   </div>
                 </div>
               </div>
               
               <div class="hero-image-wrap">
                 <img src="/hero_adam.png" alt="Adam Olayinka" class="hero-img" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Personal Intro Video Section -->
+        <section id="intro" class="intro-video-section reveal">
+          <div class="container">
+            <div class="video-grid">
+              <div class="video-content">
+                <span class="label">The Founder</span>
+                <h2>Personalized Strategy <br>for <span class="italic">Elite Fashion.</span></h2>
+                <p>In this short video, I break down how I help brands go from being "just another label" to a high-authority global presence through strategic digital architecture.</p>
+                <div class="video-features">
+                  <div class="v-feat"><i data-lucide="check"></i> 100% Custom Design</div>
+                  <div class="v-feat"><i data-lucide="check"></i> Conversion Optimization</div>
+                </div>
+              </div>
+              <div class="video-player-wrap">
+                <!-- Placeholder for actual video. User can replace the src. -->
+                <div class="video-placeholder">
+                  <div class="play-overlay">
+                    <i data-lucide="play" style="width: 48px; height: 48px; color: #fff;"></i>
+                  </div>
+                  <img src="/hero_adam.png" alt="Video Placeholder" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.4;">
+                </div>
               </div>
             </div>
           </div>
@@ -176,60 +208,43 @@
           </div>
         </section>
 
-        <!-- Services / Productization Section -->
-        <section id="services" class="services-adam">
+        <!-- Interactive Build Section -->
+        <section class="interactive-build reveal">
           <div class="container">
-            <div class="section-header reveal">
-              <span class="label">Solutions</span>
-              <h2 class="reveal-text">Strategic packages built for <br><span class="italic">Identity & Authority.</span></h2>
+            <div class="section-header">
+              <span class="label">Interactive</span>
+              <h2>Preview your <span class="italic">Brand Aesthetic.</span></h2>
             </div>
-
-            <div class="services-grid">
-              <!-- Tier 1 -->
-              <div class="service-card reveal">
-                <div class="card-tag">The Essential</div>
-                <h3>Starter Brand Kit</h3>
-                <p>Perfect for emerging labels establishing their first digital footprint.</p>
-                <ul class="service-list">
-                  <li><i data-lucide="check" class="check-icon"></i> Core Visual Identity</li>
-                  <li><i data-lucide="check" class="check-icon"></i> Type & Color System</li>
-                  <li><i data-lucide="check" class="check-icon"></i> 1-Page Editorial Site</li>
-                </ul>
-                <div class="card-footer">
-                  <span class="price-from">Starting at $1,200</span>
-                  <a href="#contact" class="btn-underline">Inquire <i data-lucide="arrow-right"></i></a>
+            <div class="builder-grid">
+              <div class="builder-controls">
+                <div class="control-group">
+                  <span class="control-label">Select Aesthetic</span>
+                  <div class="aesthetic-options">
+                    <button class="aesthetic-btn active" data-style="minimal">Minimal Luxe</button>
+                    <button class="aesthetic-btn" data-style="editorial">Editorial Bold</button>
+                    <button class="aesthetic-btn" data-style="asymmetric">Asymmetric Modern</button>
+                  </div>
+                </div>
+                <div class="control-group" style="margin-top: 2rem;">
+                  <span class="control-label">Project Focus</span>
+                  <div class="aesthetic-options">
+                    <button class="focus-btn active" data-focus="conversion">High Conversion</button>
+                    <button class="focus-btn" data-focus="storytelling">Storytelling</button>
+                  </div>
                 </div>
               </div>
-
-              <!-- Tier 2 (Popular) -->
-              <div class="service-card reveal popular">
-                <div class="card-tag highlight">Most Popular</div>
-                <h3>Premium Website</h3>
-                <p>A full conversion engine designed for labels ready to sell with confidence.</p>
-                <ul class="service-list">
-                  <li><i data-lucide="check" class="check-icon"></i> Custom Web Design</li>
-                  <li><i data-lucide="check" class="check-icon"></i> E-commerce Integration</li>
-                  <li><i data-lucide="check" class="check-icon"></i> SEO & Performance</li>
-                </ul>
-                <div class="card-footer">
-                  <span class="price-from">Starting at $3,500</span>
-                  <a href="#contact" class="btn-underline">Inquire <i data-lucide="arrow-right"></i></a>
-                </div>
-              </div>
-
-              <!-- Tier 3 -->
-              <div class="service-card reveal">
-                <div class="card-tag">The Authority</div>
-                <h3>Full Identity System</h3>
-                <p>Complete brand transformation for labels scaling to the global market.</p>
-                <ul class="service-list">
-                  <li><i data-lucide="check" class="check-icon"></i> Full Brand Strategy</li>
-                  <li><i data-lucide="check" class="check-icon"></i> Immersive Experience</li>
-                  <li><i data-lucide="check" class="check-icon"></i> Ongoing Strategy</li>
-                </ul>
-                <div class="card-footer">
-                  <span class="price-from">Custom Quote</span>
-                  <a href="#contact" class="btn-underline">Book Call <i data-lucide="arrow-right"></i></a>
+              <div class="builder-preview">
+                <div id="preview-canvas" class="preview-minimal">
+                  <div class="preview-nav"></div>
+                  <div class="preview-hero">
+                    <div class="preview-box"></div>
+                    <div class="preview-line"></div>
+                    <div class="preview-line short"></div>
+                  </div>
+                  <div class="preview-grid">
+                    <div class="preview-item"></div>
+                    <div class="preview-item"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -293,6 +308,33 @@
                   <p class="project-desc">Minimalist architecture designed to remove friction and speed up sales.</p>
                 </div>
               </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Authority Insights Section -->
+        <section class="insights-adam reveal">
+          <div class="container">
+            <div class="section-header">
+              <span class="label">Expertise</span>
+              <h2>Fashion Digital <span class="italic">Insights.</span></h2>
+            </div>
+            <div class="insights-grid">
+              <div class="insight-card">
+                <span class="insight-num">01</span>
+                <h3>Why most fashion websites don't convert</h3>
+                <p>Luxury is about silence and space. Overcrowding your digital storefront with aggressive sales tactics devalues your brand. Learn the art of strategic omission.</p>
+              </div>
+              <div class="insight-card">
+                <span class="insight-num">02</span>
+                <h3>The power of Brand Perception</h3>
+                <p>Your price point is justified by your presentation. If your website looks like a template, your products feel like commodities. Identity is the bridge to premium pricing.</p>
+              </div>
+              <div class="insight-card">
+                <span class="insight-num">03</span>
+                <h3>Future-proofing your Digital Store</h3>
+                <p>Trends fade, but structural integrity remains. I build scalable architectures that grow with your collection and adapt to evolving technologies.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -424,12 +466,26 @@
                     </div>
                     <input type="hidden" id="project-budget" name="project_budget" required>
                     <button type="button" class="next-step-btn" disabled style="margin-top: 2rem;">
+                      Continue <i data-lucide="arrow-right" style="width: 14px;"></i>
+                    </button>
+                  </div>
+
+                  <!-- Step 5: Timeline Selector (Client Qualification Gate) -->
+                  <div class="form-step" data-step="5">
+                    <span class="label" style="margin-bottom: 2rem; display: block;">When do we start?</span>
+                    <div class="budget-grid">
+                      <div class="timeline-option budget-option" data-value="Immediately">Immediately</div>
+                      <div class="timeline-option budget-option" data-value="Next 30 Days">Next 30 Days</div>
+                      <div class="timeline-option budget-option" data-value="Planning Phase">Planning Phase</div>
+                    </div>
+                    <input type="hidden" id="project-timeline" name="project_timeline" required>
+                    <button type="button" class="next-step-btn" disabled style="margin-top: 2rem;">
                       Final Step <i data-lucide="arrow-right" style="width: 14px;"></i>
                     </button>
                   </div>
 
-                  <!-- Step 5: Message -->
-                  <div class="form-step" data-step="5">
+                  <!-- Step 6: Message -->
+                  <div class="form-step" data-step="6">
                     <div class="form-group">
                       <textarea id="message" name="message" placeholder=" " required></textarea>
                       <label for="message">Tell me about the project...</label>
@@ -466,6 +522,12 @@
         <i data-lucide="message-circle" style="width: 18px;"></i>
         Contact Me
       </a>
+
+      <!-- Floating Smart CTA -->
+      <div class="smart-cta-pill reveal" id="smart-cta">
+        <span class="pill-text">Let's build yours</span>
+        <a href="#contact" class="pill-btn"><i data-lucide="arrow-right"></i></a>
+      </div>
     </div>
     <!-- Floating WhatsApp Instant Connect -->
     <a href="https://wa.me/2349136599914" target="_blank" class="whatsapp-float reveal">
