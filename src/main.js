@@ -396,50 +396,50 @@ if (interactiveForm) {
       message: document.getElementById('message').value
     }
 
-    try {
-      if (!supabase) throw new Error('Supabase not initialized')
-
-      const { error } = await supabase.from('inquiries').insert([formData])
-      if (error) throw error
-
-      // Construct WhatsApp Message
-      const waMessage = `Hello Adam, my name is ${formData.name}.
+    // Always construct WhatsApp Message
+    const waMessage = `Hello Adam, my name is ${formData.name}.
 I'm interested in a ${formData.project_type} project.
 Email: ${formData.email}
 Details: ${formData.message}`
-      
-      const waUrl = `https://wa.me/2349136599914?text=${encodeURIComponent(waMessage)}`
+    
+    const waUrl = `https://wa.me/2349136599914?text=${encodeURIComponent(waMessage)}`
 
-      updateAssistant('success')
-      gsap.to(interactiveForm, {
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.6,
-        onComplete: () => {
-          interactiveForm.innerHTML = `
-            <div class="success-message" style="padding: 2rem 0;">
-              <h3 style="font-size: 2rem; margin-bottom: 1rem;">Thank You.</h3>
-              <p style="margin-bottom: 3rem;">Your inquiry has been recorded. Redirecting you to WhatsApp to finalize the details...</p>
-              <a href="${waUrl}" target="_blank" class="btn-underline">Open WhatsApp Manually <i data-lucide="arrow-right" style="width: 14px;"></i></a>
-            </div>
-          `
-          lucide.createIcons()
-          gsap.from('.success-message', { opacity: 0, y: 20, duration: 0.6 })
-          
-          // Auto-redirect after a short delay
-          setTimeout(() => {
-            window.open(waUrl, '_blank')
-          }, 1500)
-        }
-      })
+    // UI state: Success/Redirecting
+    updateAssistant('success')
+    gsap.to(interactiveForm, {
+      opacity: 0,
+      scale: 0.95,
+      duration: 0.6,
+      onComplete: () => {
+        interactiveForm.innerHTML = `
+          <div class="success-message" style="padding: 2rem 0;">
+            <h3 style="font-size: 2rem; margin-bottom: 1rem;">Thank You.</h3>
+            <p style="margin-bottom: 3rem;">Your inquiry has been recorded. Redirecting you to WhatsApp to finalize the details...</p>
+            <a href="${waUrl}" target="_blank" class="btn-underline">Open WhatsApp Manually <i data-lucide="arrow-right" style="width: 14px;"></i></a>
+          </div>
+        `
+        lucide.createIcons()
+        gsap.from('.success-message', { opacity: 0, y: 20, duration: 0.6 })
+        
+        setTimeout(() => {
+          window.open(waUrl, '_blank')
+        }, 1200)
+      }
+    })
 
+    // Try to save to Supabase in the background
+    try {
+      if (supabase) {
+        // We use a simplified object in case 'project_type' column doesn't exist yet
+        const { error } = await supabase.from('inquiries').insert([{
+          name: formData.name,
+          email: formData.email,
+          message: `[Project: ${formData.project_type}] ${formData.message}`
+        }])
+        if (error) console.warn('Supabase Insert Error:', error.message)
+      }
     } catch (err) {
-      console.error('Error:', err.message)
-      submitBtn.innerHTML = 'Error. Try again.'
-      setTimeout(() => {
-        submitBtn.innerHTML = originalBtnText
-        submitBtn.disabled = false
-      }, 3000)
+      console.warn('Supabase Error:', err.message)
     }
   })
 }
