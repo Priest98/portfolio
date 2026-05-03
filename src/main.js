@@ -29,71 +29,155 @@ function raf(time) {
 
 requestAnimationFrame(raf)
 
-// Global Reveal Animations
-const revealElements = document.querySelectorAll('.reveal')
-const revealTexts = document.querySelectorAll('.reveal-text')
-const revealSubs = document.querySelectorAll('.reveal-sub')
+// Sync ScrollTrigger with Lenis
+lenis.on('scroll', ScrollTrigger.update)
 
-revealElements.forEach((el) => {
-  gsap.from(el, {
-    scrollTrigger: {
-      trigger: el,
-      start: 'top 90%',
-      toggleActions: 'play none none none',
-      once: true
-    },
-    opacity: 0,
-    y: 30,
-    duration: 1.2,
-    ease: 'expo.out'
-  })
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000)
 })
 
-// Specific text reveal for headers (staggered)
-revealTexts.forEach((el) => {
-  gsap.from(el, {
-    scrollTrigger: {
-      trigger: el,
-      start: 'top 90%',
-      once: true
-    },
-    opacity: 0,
-    y: 40,
-    duration: 1.5,
-    stagger: 0.2,
-    ease: 'power4.out'
-  })
-})
+gsap.ticker.lagSmoothing(0)
 
-// Image reveals with subtle scale
-const revealImgs = document.querySelectorAll('.reveal-img, .project-visual img, .hero-img')
-revealImgs.forEach((img) => {
-  gsap.from(img, {
+// 1. GLOBAL SETUP & SCROLL PROGRESS
+if (document.querySelector('.scroll-progress')) {
+  gsap.to('.scroll-progress', {
+    width: '100%',
+    ease: 'none',
     scrollTrigger: {
-      trigger: img,
-      start: 'top 90%',
-      once: true
-    },
-    opacity: 0,
-    scale: 1.05,
-    duration: 1.8,
-    ease: 'expo.out'
-  })
-})
-
-// Parallax for Hero Image
-const heroImg = document.querySelector('.hero-img')
-if (heroImg) {
-  gsap.to(heroImg, {
-    scrollTrigger: {
-      trigger: '#hero',
+      trigger: 'body',
       start: 'top top',
-      end: 'bottom top',
-      scrub: true
-    },
+      end: 'bottom bottom',
+      scrub: 0.3,
+    }
+  })
+}
+
+// 2. HERO SECTION ENHANCEMENT
+window.addEventListener('load', () => {
+  const heroTl = gsap.timeline({ defaults: { ease: 'expo.out' } })
+
+  heroTl.set(['.hero-layout', '.reveal-text', '.hero-text p', '.hero-btns .btn-underline', '.hero-image-wrap'], { autoAlpha: 1, visibility: 'visible' })
+
+  heroTl.from('.reveal-text', {
+    y: 80,
+    opacity: 0,
+    duration: 1.8,
+    stagger: 0.2,
+    clearProps: 'all'
+  }, 0.2)
+
+  heroTl.from('.hero-text p', {
+    y: 40,
+    opacity: 0,
+    duration: 1.5,
+  }, '-=1.2')
+
+  heroTl.from('.hero-btns .btn-underline', {
+    scale: 0.8,
+    opacity: 0,
+    duration: 1.2,
+    stagger: 0.15,
+  }, '-=1')
+
+  heroTl.from('.hero-image-wrap', {
+    x: 50,
+    opacity: 0,
+    duration: 2.2,
+  }, 0.5)
+
+  // Hero Image Parallax
+  const heroImg = document.querySelector('.hero-img')
+  if (heroImg) {
+    gsap.to(heroImg, {
+      yPercent: 15,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      }
+    })
+  }
+
+  // 4. FEATURED WORK / GALLERY SECTION (PINNED HORIZONTAL)
+  const projectsGrid = document.querySelector('.projects-grid')
+  const projectsSection = document.querySelector('#projects')
+
+  if (projectsGrid && projectsSection && window.innerWidth > 1024) {
+    projectsGrid.classList.add('horizontal')
+    
+    const horizontalTween = gsap.to(projectsGrid, {
+      x: () => -(projectsGrid.scrollWidth - window.innerWidth + 100),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: projectsSection,
+        pin: true,
+        scrub: 1,
+        start: 'top 5%',
+        end: () => `+=${projectsGrid.scrollWidth}`,
+        invalidateOnRefresh: true,
+      }
+    })
+
+    // Animate each project's info as it enters the view
+    const projectInfos = projectsGrid.querySelectorAll('.project-info')
+    projectInfos.forEach((info) => {
+      gsap.from(info, {
+        x: 100,
+        opacity: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: info,
+          containerAnimation: horizontalTween,
+          start: 'left 80%',
+          toggleActions: 'play none none none',
+        }
+      })
+    })
+  }
+})
+
+// 3. SECTION-BASED SCROLL ANIMATIONS
+const revealSections = document.querySelectorAll('section:not(#hero)')
+revealSections.forEach((section) => {
+  const reveals = section.querySelectorAll('.reveal, .reveal-text, .reveal-sub')
+  
+  if (reveals.length > 0) {
+    gsap.set(reveals, { visibility: 'visible' })
+    gsap.from(reveals, {
+      y: 60,
+      opacity: 0,
+      duration: 1.4,
+      stagger: 0.2,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 80%',
+        toggleActions: 'play none none none',
+        once: true
+      }
+    })
+  }
+})
+
+// 7. CTA / CONTACT SECTION
+const contactSection = document.querySelector('.contact-adam')
+if (contactSection) {
+  const contactReveals = contactSection.querySelectorAll('.label, .contact-quote, .main-cta, .sub-cta, .contact-links, .contact-form')
+  gsap.set(contactReveals, { visibility: 'visible' })
+  
+  gsap.from(contactReveals, {
     y: 50,
-    scale: 1.05,
-    ease: 'none'
+    opacity: 0,
+    stagger: 0.15,
+    duration: 1.2,
+    ease: 'power4.out',
+    scrollTrigger: {
+      trigger: contactSection,
+      start: 'top 70%',
+      once: true
+    }
   })
 }
 
@@ -102,6 +186,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault()
     const targetId = this.getAttribute('href')
+    if (targetId === '#') return
     const target = document.querySelector(targetId)
     if (target) {
       lenis.scrollTo(target, { offset: -80 })
@@ -118,7 +203,7 @@ window.addEventListener('scroll', () => {
   sections.forEach(section => {
     const sectionTop = section.offsetTop
     const sectionHeight = section.clientHeight
-    if (window.scrollY >= (sectionTop - 200)) {
+    if (window.scrollY >= (sectionTop - 250)) {
       current = section.getAttribute('id')
     }
   })
@@ -163,26 +248,14 @@ window.addEventListener('scroll', () => {
     return
   }
 
-  if (currentScroll > lastScroll && !navbar.classList.contains('hidden')) {
-    // Scroll Down
+  if (currentScroll > lastScroll && currentScroll > 200 && !navbar.classList.contains('hidden')) {
     navbar.classList.add('hidden')
   } else if (currentScroll < lastScroll && navbar.classList.contains('hidden')) {
-    // Scroll Up
     navbar.classList.remove('hidden')
   }
   lastScroll = currentScroll
 })
 
-// Optimize GSAP for Mobile
-ScrollTrigger.config({
-  limitCallbacks: true,
-  ignoreMobileResize: true
-})
-
-if (window.innerWidth < 1025) {
-  // Simplify or remove heavy animations for mobile if needed
-  // For now, GSAP is efficient, but we can reduce complexity
-}
 // Supabase Configuration
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
@@ -190,8 +263,6 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 let supabase = null
 if (supabaseUrl && supabaseAnonKey) {
   supabase = createClient(supabaseUrl, supabaseAnonKey)
-} else {
-  console.warn('Supabase credentials missing. Contact form will not work.')
 }
 
 // Form Handling
@@ -202,7 +273,6 @@ if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault()
     
-    // UI State: Loading
     const originalBtnText = submitBtn.innerHTML
     submitBtn.innerHTML = 'Sending...'
     submitBtn.style.opacity = '0.7'
@@ -216,19 +286,13 @@ if (contactForm) {
     }
 
     try {
-      if (!supabase) {
-        throw new Error('Supabase client not initialized')
-      }
+      if (!supabase) throw new Error('Supabase not initialized')
 
-      const { error } = await supabase
-        .from('inquiries')
-        .insert([data])
-
+      const { error } = await supabase.from('inquiries').insert([data])
       if (error) throw error
 
-      // Success State
       submitBtn.innerHTML = 'Success <i data-lucide="check" style="width: 16px;"></i>'
-      lucide.createIcons() // Re-init icons for the new checkmark
+      lucide.createIcons()
       contactForm.reset()
       
       setTimeout(() => {

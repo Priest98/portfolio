@@ -730,14 +730,44 @@ section {
   color: var(--bg-color);
 }
 
-/* Reveal State - Adjusted for visibility */
+/* Reveal State - GSAP will handle animations */
 .reveal, .reveal-text, .reveal-sub {
-  transition: var(--transition-luxury);
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform, opacity;
 }
 
-.reveal.active, .reveal-text.active, .reveal-sub.active {
-  opacity: 1;
-  transform: translateY(0);
+/* Scroll Progress Indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--accent-color);
+  z-index: 10001;
+  pointer-events: none;
+}
+
+/* Horizontal Scroll for Projects (Desktop) */
+@media (min-width: 1025px) {
+  .projects-adam {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .projects-grid.horizontal {
+    display: flex;
+    flex-wrap: nowrap;
+    width: fit-content;
+    gap: 100px;
+    padding-right: 100px;
+  }
+
+  .projects-grid.horizontal .project-card {
+    flex: 0 0 500px; /* Specific width for horizontal flow */
+    margin-top: 0 !important;
+  }
 }
 
 /* Responsive */
