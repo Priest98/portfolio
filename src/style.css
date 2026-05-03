@@ -1016,26 +1016,9 @@ section {
     text-align: center;
   }
 
-  /* Sticky Contact Button */
+  /* Hide redundant contact pill when WhatsApp float is present */
   .mobile-contact-sticky {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: var(--island-bg);
-    color: var(--island-text);
-    padding: 16px 28px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    z-index: 999;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid rgba(255,255,255,0.1);
+    display: none;
   }
 }
 
