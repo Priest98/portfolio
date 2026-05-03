@@ -453,78 +453,68 @@ Details: ${formData.message}`
   })
 }
 
-// Funnel & Conversion System
-const funnelSystem = () => {
-  const userMaturity = {
-    hasWebsite: null,
-    seenAdvanced: false,
-    isBeginner: false
+// Conversion Popup Logic
+const conversionSystem = () => {
+  const popup = document.getElementById('conversion-popup')
+  const closeBtn = popup?.querySelector('.exit-close')
+  const primaryBtn = document.getElementById('popup-primary')
+  const secondaryBtn = document.getElementById('popup-secondary')
+  
+  let popupTriggered = false
+  const isFormSubmitted = sessionStorage.getItem('form_submitted')
+
+  const showPopup = () => {
+    if (popupTriggered || isFormSubmitted || sessionStorage.getItem('conversion_popup_shown')) return
+    
+    if (popup) {
+      popup.classList.add('show')
+      popupTriggered = true
+      sessionStorage.setItem('conversion_popup_shown', 'true')
+      
+      gsap.from(popup.querySelector('.exit-popup-content'), {
+        scale: 0.95,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power3.out'
+      })
+    }
   }
 
+  if (popup) {
+    // 1. Time-based trigger (25 seconds)
+    setTimeout(showPopup, 25000)
+
+    // 2. Scroll-based trigger (50%)
+    window.addEventListener('scroll', () => {
+      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+      if (scrollPercent > 50) showPopup()
+    })
+
+    // 3. Exit Intent trigger
+    document.addEventListener('mouseleave', (e) => {
+      if (e.clientY < 0) showPopup()
+    })
+
+    // Close logic
+    closeBtn?.addEventListener('click', () => popup.classList.remove('show'))
+    popup.addEventListener('click', (e) => {
+      if (e.target === popup) popup.classList.remove('show')
+    })
+    
+    // CTA clicks
+    if (primaryBtn) primaryBtn.addEventListener('click', () => popup.classList.remove('show'))
+    if (secondaryBtn) secondaryBtn.addEventListener('click', () => popup.classList.remove('show'))
+  }
+
+  // Returning Visitor Logic
   const hasVisited = localStorage.getItem('adam_portfolio_visited')
   if (hasVisited) {
     const heroPara = document.querySelector('.hero-text p')
     if (heroPara) {
       heroPara.textContent = "Welcome back. Ready to elevate your brand perception today? Let's pick up where we left off."
     }
-    const heroBtn = document.querySelector('.hero-btns a[href="#contact"]')
-    if (heroBtn) heroBtn.textContent = "Continue My Inquiry"
   }
   localStorage.setItem('adam_portfolio_visited', 'true')
-
-  const typeCards = document.querySelectorAll('.type-card')
-  typeCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const val = card.dataset.value
-      if (val === "Starting from Scratch" || val === "Brand Identity") {
-        userMaturity.isBeginner = true
-        userMaturity.hasWebsite = false
-      } else {
-        userMaturity.hasWebsite = true
-      }
-    })
-  })
-
-  const projectCards = document.querySelectorAll('.project-card')
-  projectCards.forEach(card => {
-    card.addEventListener('click', () => {
-      userMaturity.seenAdvanced = true
-    })
-  })
-
-  const exitPopup = document.getElementById('exit-intent')
-  const noWebPopup = document.getElementById('no-website-popup')
-  const exitCloseBtns = document.querySelectorAll('.exit-close')
-  let exitTriggered = false
-
-  const showExitPopup = () => {
-    if (exitTriggered) return
-    if ((userMaturity.hasWebsite === false || userMaturity.isBeginner) && !userMaturity.seenAdvanced) {
-      if (noWebPopup) noWebPopup.classList.add('show')
-    } else {
-      if (exitPopup) exitPopup.classList.add('show')
-    }
-    exitTriggered = true
-    sessionStorage.setItem('exit_intent_shown', 'true')
-  }
-
-  if ((exitPopup || noWebPopup) && !sessionStorage.getItem('exit_intent_shown')) {
-    document.addEventListener('mouseleave', (e) => {
-      if (e.clientY < 0) showExitPopup()
-    })
-    
-    exitCloseBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        exitPopup.classList.remove('show')
-        noWebPopup.classList.remove('show')
-      })
-    })
-    
-    window.addEventListener('click', (e) => {
-      if (e.target === exitPopup) exitPopup.classList.remove('show')
-      if (e.target === noWebPopup) noWebPopup.classList.remove('show')
-    })
-  }
 }
 
-funnelSystem()
+conversionSystem()
