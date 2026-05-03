@@ -38,6 +38,9 @@ gsap.ticker.add((time) => {
 
 gsap.ticker.lagSmoothing(0)
 
+// Initial hidden state for reveals to prevent flash (since we removed it from CSS for safety)
+gsap.set('.reveal, .reveal-text, .reveal-sub', { autoAlpha: 0 })
+
 // 1. GLOBAL SETUP & SCROLL PROGRESS
 if (document.querySelector('.scroll-progress')) {
   gsap.to('.scroll-progress', {
@@ -56,14 +59,15 @@ if (document.querySelector('.scroll-progress')) {
 window.addEventListener('load', () => {
   const heroTl = gsap.timeline({ defaults: { ease: 'expo.out' } })
 
-  heroTl.set(['.hero-layout', '.reveal-text', '.hero-text p', '.hero-btns .btn-underline', '.hero-image-wrap'], { autoAlpha: 1, visibility: 'visible' })
+  // Ensure elements are prepared for animation
+  const heroElements = ['.hero-layout', '.reveal-text', '.hero-text p', '.hero-btns .btn-underline', '.hero-image-wrap', '.reveal']
+  gsap.set(heroElements, { autoAlpha: 1, visibility: 'visible' })
 
   heroTl.from('.reveal-text', {
     y: 80,
     opacity: 0,
     duration: 1.8,
     stagger: 0.2,
-    clearProps: 'all'
   }, 0.2)
 
   heroTl.from('.hero-text p', {
@@ -144,7 +148,9 @@ revealSections.forEach((section) => {
   const reveals = section.querySelectorAll('.reveal, .reveal-text, .reveal-sub')
   
   if (reveals.length > 0) {
-    gsap.set(reveals, { visibility: 'visible' })
+    // Crucial: Set opacity to 1 before animating FROM 0
+    gsap.set(reveals, { autoAlpha: 1, visibility: 'visible' })
+    
     gsap.from(reveals, {
       y: 60,
       opacity: 0,
@@ -165,7 +171,7 @@ revealSections.forEach((section) => {
 const contactSection = document.querySelector('.contact-adam')
 if (contactSection) {
   const contactReveals = contactSection.querySelectorAll('.label, .contact-quote, .main-cta, .sub-cta, .contact-links, .contact-form')
-  gsap.set(contactReveals, { visibility: 'visible' })
+  gsap.set(contactReveals, { autoAlpha: 1, visibility: 'visible' })
   
   gsap.from(contactReveals, {
     y: 50,
