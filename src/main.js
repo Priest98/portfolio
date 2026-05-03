@@ -271,54 +271,161 @@ if (supabaseUrl && supabaseAnonKey) {
   supabase = createClient(supabaseUrl, supabaseAnonKey)
 }
 
-// Form Handling
-const contactForm = document.querySelector('.contact-form form')
-const submitBtn = document.querySelector('.submit-btn-text')
+// Interactive Form Logic
+const interactiveForm = document.getElementById('interactive-form')
+if (interactiveForm) {
+  const steps = interactiveForm.querySelectorAll('.form-step')
+  const nextBtns = interactiveForm.querySelectorAll('.next-step-btn')
+  const assistantText = document.getElementById('assistant-text')
+  const typeCards = interactiveForm.querySelectorAll('.type-card')
+  const projectTypeInput = document.getElementById('project-type')
+  
+  let currentStep = 1
+  
+  const assistantMessages = {
+    1: "Let’s talk. Tell me what you’re building.",
+    2: "Nice to meet you! Now, what's the best email to reach you?",
+    3: "Got it. What kind of project are we looking at?",
+    4: "Almost there. Any specific details you want to share?",
+    success: "Message received. Let’s build something great."
+  }
 
-if (contactForm) {
-  contactForm.addEventListener('submit', async (e) => {
+  const updateAssistant = (step) => {
+    gsap.to(assistantText, {
+      opacity: 0,
+      y: -10,
+      duration: 0.3,
+      onComplete: () => {
+        assistantText.textContent = assistantMessages[step] || assistantMessages[1]
+        gsap.to(assistantText, { opacity: 1, y: 0, duration: 0.3 })
+      }
+    })
+    
+    gsap.to('.assistant-avatar', {
+      scale: 1.15,
+      duration: 0.2,
+      yoyo: true,
+      repeat: 1,
+      ease: 'power2.out'
+    })
+  }
+
+  const goToStep = (nextStep) => {
+    const currentEl = interactiveForm.querySelector(`.form-step[data-step="${currentStep}"]`)
+    const nextEl = interactiveForm.querySelector(`.form-step[data-step="${nextStep}"]`)
+    
+    const tl = gsap.timeline()
+    
+    tl.to(currentEl, {
+      opacity: 0,
+      y: -20,
+      duration: 0.4,
+      onComplete: () => {
+        currentEl.classList.remove('active')
+        nextEl.classList.add('active')
+        updateAssistant(nextStep)
+        // Auto-focus the next input
+        const nextInput = nextEl.querySelector('input, textarea')
+        if (nextInput) nextInput.focus()
+      }
+    })
+    
+    tl.fromTo(nextEl, 
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }
+    )
+    
+    currentStep = nextStep
+  }
+
+  nextBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const currentInput = steps[currentStep-1].querySelector('input, textarea')
+      if (currentInput && !currentInput.checkValidity()) {
+        currentInput.reportValidity()
+        return
+      }
+      
+      if (currentStep < steps.length) {
+        goToStep(currentStep + 1)
+      }
+    })
+  })
+
+  // Handle Enter key for text inputs
+  interactiveForm.querySelectorAll('input:not([type="hidden"])').forEach(input => {
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        const nextBtn = input.closest('.form-step').querySelector('.next-step-btn')
+        if (nextBtn) nextBtn.click()
+      }
+    })
+  })
+
+  typeCards.forEach(card => {
+    card.addEventListener('click', () => {
+      typeCards.forEach(c => c.classList.remove('selected'))
+      card.classList.add('selected')
+      projectTypeInput.value = card.dataset.value
+      
+      const nextBtn = interactiveForm.querySelector('.form-step[data-step="3"] .next-step-btn')
+      if (nextBtn) nextBtn.disabled = false
+      
+      gsap.from(card, { scale: 0.95, duration: 0.3, ease: 'back.out(2)' })
+      
+      // Auto-advance after small delay
+      setTimeout(() => {
+        if (currentStep === 3) goToStep(4)
+      }, 600)
+    })
+  })
+
+  interactiveForm.addEventListener('submit', async (e) => {
     e.preventDefault()
     
+    const submitBtn = interactiveForm.querySelector('button[type="submit"]')
     const originalBtnText = submitBtn.innerHTML
     submitBtn.innerHTML = 'Sending...'
-    submitBtn.style.opacity = '0.7'
     submitBtn.disabled = true
 
-    const formData = new FormData(contactForm)
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      message: formData.get('message')
+    const formData = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      project_type: document.getElementById('project-type').value,
+      message: document.getElementById('message').value
     }
 
     try {
       if (!supabase) throw new Error('Supabase not initialized')
 
-      const { error } = await supabase.from('inquiries').insert([data])
+      const { error } = await supabase.from('inquiries').insert([formData])
       if (error) throw error
 
-      submitBtn.innerHTML = 'Success <i data-lucide="check" style="width: 16px;"></i>'
-      lucide.createIcons()
-      contactForm.reset()
-      
-      setTimeout(() => {
-        submitBtn.innerHTML = originalBtnText
-        submitBtn.style.opacity = '1'
-        submitBtn.disabled = false
-        lucide.createIcons()
-      }, 5000)
+      updateAssistant('success')
+      gsap.to(interactiveForm, {
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.6,
+        onComplete: () => {
+          interactiveForm.innerHTML = `
+            <div class="success-message" style="padding: 2rem 0;">
+              <h3 style="font-size: 2rem; margin-bottom: 1rem;">Thank You.</h3>
+              <p style="margin-bottom: 3rem;">Your inquiry has been sent. I will be in touch shortly.</p>
+              <a href="#projects" class="btn-underline">Back to Work <i data-lucide="arrow-right" style="width: 14px;"></i></a>
+            </div>
+          `
+          lucide.createIcons()
+          gsap.from('.success-message', { opacity: 0, y: 20, duration: 0.6 })
+        }
+      })
 
     } catch (err) {
       console.error('Error:', err.message)
       submitBtn.innerHTML = 'Error. Try again.'
-      submitBtn.style.color = '#ff4d4d'
-      
       setTimeout(() => {
         submitBtn.innerHTML = originalBtnText
-        submitBtn.style.opacity = '1'
         submitBtn.disabled = false
-        submitBtn.style.color = ''
-        lucide.createIcons()
       }, 3000)
     }
   })

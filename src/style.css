@@ -730,6 +730,130 @@ section {
   color: var(--bg-color);
 }
 
+/* Interactive Form Styles */
+.form-step {
+  display: none;
+}
+
+.form-step.active {
+  display: block;
+}
+
+.next-step-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.6;
+  transition: all 0.4s ease;
+  padding: 10px 0;
+}
+
+.next-step-btn:hover {
+  opacity: 1;
+  gap: 18px;
+}
+
+.next-step-btn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+/* UI Assistant */
+.ui-assistant {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 4rem;
+}
+
+.assistant-avatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(197, 160, 89, 0.05);
+  border-radius: 50%;
+}
+
+.avatar-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--accent-color);
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.1; }
+  50% { transform: scale(1.5); opacity: 0.05; }
+  100% { transform: scale(1); opacity: 0.1; }
+}
+
+.assistant-bubble {
+  background: #f9f9f9;
+  padding: 12px 20px;
+  border-radius: 2px 20px 20px 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-color);
+  max-width: 250px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+}
+
+/* Project Type Cards */
+.project-type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.type-card {
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.type-card span {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.type-card:hover {
+  border-color: var(--text-color);
+  transform: translateY(-5px);
+}
+
+.type-card.selected {
+  background: var(--text-color);
+  border-color: var(--text-color);
+}
+
+.type-card.selected span,
+.type-card.selected i {
+  color: var(--bg-color) !important;
+}
+
 /* Reveal State - GSAP will handle animations */
 .reveal, .reveal-text, .reveal-sub {
   will-change: transform, opacity;
@@ -875,6 +999,15 @@ section {
     margin-top: 4rem;
     flex-direction: column;
     gap: 2rem;
+  }
+
+  .project-type-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .type-card {
+    padding: 16px;
   }
   
   .footer-wrap {

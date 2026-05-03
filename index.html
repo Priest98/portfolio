@@ -219,23 +219,78 @@
               </div>
 
               <div class="contact-form reveal">
-                <form action="#">
-                  <div class="form-group">
-                    <input type="text" id="name" placeholder=" " required>
-                    <label for="name">Name</label>
+                <!-- UI Assistant -->
+                <div class="ui-assistant">
+                  <div class="assistant-avatar">
+                    <div class="avatar-glow"></div>
+                    <i data-lucide="sparkles" style="width: 18px; color: var(--accent-color);"></i>
                   </div>
-                  <div class="form-group">
-                    <input type="email" id="email" placeholder=" " required>
-                    <label for="email">Email</label>
+                  <div class="assistant-bubble">
+                    <p id="assistant-text">Let’s talk. Tell me what you’re building.</p>
                   </div>
-                  <div class="form-group">
-                    <textarea id="message" placeholder=" " required></textarea>
-                    <label for="message">Message</label>
+                </div>
+
+                <form id="interactive-form">
+                  <!-- Step 1: Name -->
+                  <div class="form-step active" data-step="1">
+                    <div class="form-group">
+                      <input type="text" id="name" name="name" placeholder=" " required>
+                      <label for="name">What's your name?</label>
+                    </div>
+                    <button type="button" class="next-step-btn">
+                      Continue <i data-lucide="arrow-right" style="width: 14px;"></i>
+                    </button>
                   </div>
-                  <button type="submit" class="submit-btn-text">
-                    Start a Project
-                    <i data-lucide="arrow-right" style="width: 16px;"></i>
-                  </button>
+
+                  <!-- Step 2: Email -->
+                  <div class="form-step" data-step="2">
+                    <div class="form-group">
+                      <input type="email" id="email" name="email" placeholder=" " required>
+                      <label for="email">Your email address?</label>
+                    </div>
+                    <button type="button" class="next-step-btn">
+                      Continue <i data-lucide="arrow-right" style="width: 14px;"></i>
+                    </button>
+                  </div>
+
+                  <!-- Step 3: Project Type -->
+                  <div class="form-step" data-step="3">
+                    <span class="label" style="margin-bottom: 2rem; display: block;">What are we building?</span>
+                    <div class="project-type-grid">
+                      <div class="type-card" data-value="Brand Identity">
+                        <i data-lucide="palette" style="width: 20px; margin-bottom: 1rem;"></i>
+                        <span>Brand Identity</span>
+                      </div>
+                      <div class="type-card" data-value="E-commerce">
+                        <i data-lucide="shopping-bag" style="width: 20px; margin-bottom: 1rem;"></i>
+                        <span>E-commerce</span>
+                      </div>
+                      <div class="type-card" data-value="Editorial Site">
+                        <i data-lucide="book-open" style="width: 20px; margin-bottom: 1rem;"></i>
+                        <span>Editorial Site</span>
+                      </div>
+                      <div class="type-card" data-value="Other">
+                        <i data-lucide="more-horizontal" style="width: 20px; margin-bottom: 1rem;"></i>
+                        <span>Other</span>
+                      </div>
+                    </div>
+                    <input type="hidden" id="project-type" name="project_type" required>
+                    <button type="button" class="next-step-btn" disabled style="margin-top: 2rem;">
+                      Continue <i data-lucide="arrow-right" style="width: 14px;"></i>
+                    </button>
+                  </div>
+
+                  <!-- Step 4: Message -->
+                  <div class="form-step" data-step="4">
+                    <div class="form-group">
+                      <textarea id="message" name="message" placeholder=" " required></textarea>
+                      <label for="message">Tell me about the project...</label>
+                    </div>
+                    <button type="submit" class="submit-btn-text">
+                      Start a Project
+                      <i data-lucide="arrow-right" style="width: 16px;"></i>
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
@@ -251,9 +306,9 @@
               <p style="opacity: 0.5; margin-top: 1rem;">&copy; 2026. All rights reserved.</p>
             </div>
             <div class="footer-right">
-              <a href="mailto:hello@adamolayinka.com">Email</a>
-              <a href="#">WhatsApp</a>
-              <a href="#">Instagram / Portfolio</a>
+              <a href="mailto:adamolayinka52@gmail.com">Email</a>
+              <a href="https://wa.me/2349136599914" target="_blank">WhatsApp</a>
+              <a href="https://www.instagram.com/adam_olayinka_?igsh=bXRsMHVuMmg0NjU5" target="_blank">Instagram</a>
             </div>
           </div>
         </div>
