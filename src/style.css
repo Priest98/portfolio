@@ -2049,8 +2049,8 @@ section {
   transition: transform 0.8s var(--transition-ease);
 }
 .project-card:hover .project-visual img {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 .project-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
 }

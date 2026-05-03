@@ -601,10 +601,11 @@ const transformationAnimations = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: buildUp,
-        start: 'top 50%',
-        end: 'bottom 20%',
+        start: 'top top',
+        end: '+=150%',
         scrub: 1,
-        pin: true
+        pin: true,
+        anticipatePin: 1
       }
     })
 
