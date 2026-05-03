@@ -522,4 +522,116 @@ const conversionSystem = () => {
   }
 }
 
+// 9. TRANSFORMATION ANIMATIONS (NEW)
+const transformationAnimations = () => {
+  // A. Comparison Slider (Drag/Move)
+  const slider = document.querySelector('.comparison-slider')
+  if (slider) {
+    const afterLayer = slider.querySelector('.comparison-after')
+    const handle = slider.querySelector('.slider-handle')
+    
+    const updateSlider = (e) => {
+      const rect = slider.getBoundingClientRect()
+      const x = (e.pageX || e.touches?.[0].pageX) - rect.left
+      const percent = Math.max(0, Math.min(100, (x / rect.width) * 100))
+      
+      gsap.to(afterLayer, { clipPath: `inset(0 0 0 ${percent}%)`, duration: 0.1 })
+      gsap.to(handle, { left: `${percent}%`, duration: 0.1 })
+    }
+
+    slider.addEventListener('mousemove', updateSlider)
+    slider.addEventListener('touchmove', (e) => {
+      e.preventDefault()
+      updateSlider(e)
+    }, { passive: false })
+  }
+
+  // B. Wireframe to Final Design Reveal
+  const processStack = document.querySelector('.process-image-stack')
+  if (processStack) {
+    gsap.to('.final-layer', {
+      clipPath: 'inset(0% 0 0 0)',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: processStack,
+        start: 'top 60%',
+        end: 'bottom 40%',
+        scrub: true
+      }
+    })
+    
+    gsap.to('.wireframe-img', {
+      scale: 1.1,
+      opacity: 0.1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: processStack,
+        start: 'top 60%',
+        end: 'bottom 40%',
+        scrub: true
+      }
+    })
+  }
+
+  // C. Text Morph (Value Transformation)
+  const morphTrigger = document.querySelector('.morph-trigger')
+  if (morphTrigger) {
+    const phrases = ['Fashion Labels', 'Creative Founders', 'Boutique Labels', 'Designer Brands']
+    let i = 0
+    
+    const morphTimeline = () => {
+      gsap.to(morphTrigger, {
+        opacity: 0,
+        y: -10,
+        duration: 0.8,
+        onComplete: () => {
+          i = (i + 1) % phrases.length
+          morphTrigger.textContent = phrases[i]
+          gsap.fromTo(morphTrigger, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.8 })
+        }
+      })
+    }
+    
+    setInterval(morphTimeline, 4000)
+  }
+
+  // D. Signature Build-up (Strategic Intent Reveal)
+  const buildUp = document.getElementById('signature-reveal')
+  if (buildUp) {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: buildUp,
+        start: 'top 50%',
+        end: 'bottom 20%',
+        scrub: 1,
+        pin: true
+      }
+    })
+
+    tl.from('.layer-1', { opacity: 0, scale: 0.9, duration: 1 })
+    tl.from('.block', { y: 100, opacity: 0, stagger: 0.2, duration: 1 })
+    tl.from('.content-reveal', { scale: 0.8, opacity: 0, duration: 1 })
+    tl.to('.build-layer:not(.layer-final)', { opacity: 0, filter: 'blur(20px)', duration: 1 })
+    tl.to('.layer-final img', { opacity: 1, scale: 1, duration: 1.5 })
+  }
+
+  // E. Project Section Scroll Evolution
+  const projectCards = gsap.utils.toArray('.project-card')
+  projectCards.forEach(card => {
+    gsap.from(card, {
+      scale: 0.9,
+      opacity: 0,
+      y: 50,
+      scrollTrigger: {
+        trigger: card,
+        start: 'top 90%',
+        end: 'top 60%',
+        scrub: true
+      }
+    })
+  })
+}
+
+transformationAnimations()
+
 conversionSystem()
