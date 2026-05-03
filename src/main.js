@@ -218,7 +218,9 @@ const intelligentSystems = () => {
       btn.classList.add('active')
       
       const style = btn.dataset.style
-      previewCanvas.className = `preview-${style}`
+      // Update only the aesthetic class, preserve focus class
+      const currentFocus = previewCanvas.className.match(/focus-\w+/)?.[0] || ''
+      previewCanvas.className = `preview-${style} ${currentFocus}`
       
       gsap.from('#preview-canvas > *', {
         opacity: 0,
@@ -226,6 +228,24 @@ const intelligentSystems = () => {
         stagger: 0.1,
         duration: 0.6,
         ease: 'power2.out'
+      })
+    })
+  })
+
+  focusBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      focusBtns.forEach(b => b.classList.remove('active'))
+      btn.classList.add('active')
+      
+      const focus = btn.dataset.focus
+      // Update only the focus class, preserve aesthetic class
+      const currentStyle = previewCanvas.className.match(/preview-\w+/)?.[0] || ''
+      previewCanvas.className = `${currentStyle} focus-${focus}`
+      
+      gsap.from('.preview-cta, .preview-text-block', {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.4
       })
     })
   })
