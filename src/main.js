@@ -456,6 +456,200 @@ Details: ${formData.message}`
           email: formData.email,
           message: `[Project: ${formData.project_type}] [Budget: ${formData.budget}] ${formData.message}`
         }])
+// Supabase Configuration
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+let supabase = null
+if (supabaseUrl && supabaseAnonKey) {
+  supabase = createClient(supabaseUrl, supabaseAnonKey)
+}
+
+// Interactive Form Logic
+const interactiveForm = document.getElementById('interactive-form')
+if (interactiveForm) {
+  const steps = interactiveForm.querySelectorAll('.form-step')
+  const nextBtns = interactiveForm.querySelectorAll('.next-step-btn')
+  const assistantText = document.getElementById('assistant-text')
+  const typeCards = interactiveForm.querySelectorAll('.type-card')
+  const projectTypeInput = document.getElementById('project-type')
+  const budgetOptions = interactiveForm.querySelectorAll('.budget-option')
+  const budgetInput = document.getElementById('project-budget')
+  
+  let currentStep = 1
+  
+  const assistantMessages = {
+    1: "Let’s talk. Tell me what you’re building.",
+    2: "Nice to meet you! Now, what's the best email to reach you?",
+    3: "Got it. What kind of project are we looking at?",
+    4: "Helpful. What's the planned investment for this?",
+    5: "Almost there. Any specific details you want to share?",
+    success: "Message received. Let’s build something great."
+  }
+
+  const updateAssistant = (step) => {
+    gsap.to(assistantText, {
+      opacity: 0,
+      y: -10,
+      duration: 0.3,
+      onComplete: () => {
+        assistantText.textContent = assistantMessages[step] || assistantMessages[1]
+        gsap.to(assistantText, { opacity: 1, y: 0, duration: 0.3 })
+      }
+    })
+    
+    gsap.to('.assistant-avatar', {
+      scale: 1.15,
+      duration: 0.2,
+      yoyo: true,
+      repeat: 1,
+      ease: 'power2.out'
+    })
+  }
+
+  const goToStep = (nextStep) => {
+    const currentEl = interactiveForm.querySelector(`.form-step[data-step="${currentStep}"]`)
+    const nextEl = interactiveForm.querySelector(`.form-step[data-step="${nextStep}"]`)
+    
+    if (!nextEl) return
+
+    const tl = gsap.timeline()
+    
+    tl.to(currentEl, {
+      opacity: 0,
+      y: -20,
+      duration: 0.4,
+      onComplete: () => {
+        currentEl.classList.remove('active')
+        nextEl.classList.add('active')
+        updateAssistant(nextStep)
+        // Auto-focus the next input
+        const nextInput = nextEl.querySelector('input, textarea')
+        if (nextInput) nextInput.focus()
+      }
+    })
+    
+    tl.fromTo(nextEl, 
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }
+    )
+    
+    currentStep = nextStep
+  }
+
+  nextBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const currentInput = steps[currentStep-1].querySelector('input, textarea')
+      if (currentInput && !currentInput.checkValidity()) {
+        currentInput.reportValidity()
+        return
+      }
+      
+      if (currentStep < steps.length) {
+        goToStep(currentStep + 1)
+      }
+    })
+  })
+
+  // Handle Enter key for text inputs
+  interactiveForm.querySelectorAll('input:not([type="hidden"])').forEach(input => {
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        const nextBtn = input.closest('.form-step').querySelector('.next-step-btn')
+        if (nextBtn && !nextBtn.disabled) nextBtn.click()
+      }
+    })
+  })
+
+  typeCards.forEach(card => {
+    card.addEventListener('click', () => {
+      typeCards.forEach(c => c.classList.remove('selected'))
+      card.classList.add('selected')
+      projectTypeInput.value = card.dataset.value
+      
+      const nextBtn = card.closest('.form-step').querySelector('.next-step-btn')
+      if (nextBtn) nextBtn.disabled = false
+      
+      gsap.from(card, { scale: 0.95, duration: 0.3, ease: 'back.out(2)' })
+      
+      // Auto-advance after small delay
+      setTimeout(() => {
+        if (currentStep === 3) goToStep(4)
+      }, 600)
+    })
+  })
+
+  budgetOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      budgetOptions.forEach(o => o.classList.remove('selected'))
+      option.classList.add('selected')
+      budgetInput.value = option.dataset.value
+      
+      const nextBtn = option.closest('.form-step').querySelector('.next-step-btn')
+      if (nextBtn) nextBtn.disabled = false
+      
+      gsap.from(option, { scale: 0.98, duration: 0.2 })
+      setTimeout(() => { if (currentStep === 4) goToStep(5) }, 600)
+    })
+  })
+
+  interactiveForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    
+    const submitBtn = interactiveForm.querySelector('button[type="submit"]')
+    const originalBtnText = submitBtn.innerHTML
+    submitBtn.innerHTML = 'Sending...'
+    submitBtn.disabled = true
+
+    const formData = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      project_type: document.getElementById('project-type').value,
+      budget: document.getElementById('project-budget').value,
+      message: document.getElementById('message').value
+    }
+
+    // Always construct WhatsApp Message
+    const waMessage = `Hello Adam, my name is ${formData.name}.
+I'm interested in a ${formData.project_type} project.
+Target Investment: ${formData.budget}
+Email: ${formData.email}
+Details: ${formData.message}`
+    
+    const waUrl = `https://wa.me/2349136599914?text=${encodeURIComponent(waMessage)}`
+
+    // UI state: Success/Redirecting
+    updateAssistant('success')
+    gsap.to(interactiveForm, {
+      opacity: 0,
+      scale: 0.95,
+      duration: 0.6,
+      onComplete: () => {
+        interactiveForm.innerHTML = `
+          <div class="success-message" style="padding: 2rem 0;">
+            <h3 style="font-size: 2rem; margin-bottom: 1rem;">Thank You.</h3>
+            <p style="margin-bottom: 3rem;">Your inquiry has been recorded. Redirecting you to WhatsApp to finalize the details...</p>
+            <a href="${waUrl}" target="_blank" class="btn-underline">Open WhatsApp Manually <i data-lucide="arrow-right" style="width: 14px;"></i></a>
+          </div>
+        `
+        lucide.createIcons()
+        gsap.from('.success-message', { opacity: 0, y: 20, duration: 0.6 })
+        
+        setTimeout(() => {
+          window.open(waUrl, '_blank')
+        }, 1200)
+      }
+    })
+
+    // Try to save to Supabase in the background
+    try {
+      if (supabase) {
+        const { error } = await supabase.from('inquiries').insert([{
+          name: formData.name,
+          email: formData.email,
+          message: `[Project: ${formData.project_type}] [Budget: ${formData.budget}] ${formData.message}`
+        }])
         if (error) console.warn('Supabase Insert Error:', error.message)
       }
     } catch (err) {
@@ -466,6 +660,13 @@ Details: ${formData.message}`
 
 // Funnel & Conversion System
 const funnelSystem = () => {
+  // Targeting Logic
+  const userMaturity = {
+    hasWebsite: null,
+    seenAdvanced: false,
+    isBeginner: false
+  }
+
   // 1. Returning Visitor Logic
   const hasVisited = localStorage.getItem('adam_portfolio_visited')
   if (hasVisited) {
@@ -478,38 +679,65 @@ const funnelSystem = () => {
   }
   localStorage.setItem('adam_portfolio_visited', 'true')
 
+  // Detect maturity from Project Type selection
+  const typeCards = document.querySelectorAll('.type-card')
+  typeCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const val = card.dataset.value
+      if (val === "Starting from Scratch" || val === "Brand Identity") {
+        userMaturity.isBeginner = true
+        userMaturity.hasWebsite = false
+      } else {
+        userMaturity.hasWebsite = true
+      }
+    })
+  })
+
+  // Detect maturity from Case Study engagement
+  const projectCards = document.querySelectorAll('.project-card')
+  projectCards.forEach(card => {
+    card.addEventListener('click', () => {
+      userMaturity.seenAdvanced = true
+    })
+  })
+
   // 2. Exit Intent System
   const exitPopup = document.getElementById('exit-intent')
-  const exitClose = document.querySelector('.exit-close')
+  const noWebPopup = document.getElementById('no-website-popup')
+  const exitCloseBtns = document.querySelectorAll('.exit-close')
   let exitTriggered = false
 
   const showExitPopup = () => {
     if (exitTriggered) return
-    exitPopup.classList.add('show')
+    
+    // DECISION: Which popup to show?
+    if ((userMaturity.hasWebsite === false || userMaturity.isBeginner) && !userMaturity.seenAdvanced) {
+      if (noWebPopup) noWebPopup.classList.add('show')
+    } else {
+      if (exitPopup) exitPopup.classList.add('show')
+    }
+    
     exitTriggered = true
     sessionStorage.setItem('exit_intent_shown', 'true')
   }
 
-  if (exitPopup && !sessionStorage.getItem('exit_intent_shown')) {
+  if ((exitPopup || noWebPopup) && !sessionStorage.getItem('exit_intent_shown')) {
     document.addEventListener('mouseleave', (e) => {
       if (e.clientY < 0) showExitPopup()
     })
     
-    exitClose.addEventListener('click', () => {
-      exitPopup.classList.remove('show')
-    })
-    
-    exitPopup.addEventListener('click', (e) => {
-      if (e.target === exitPopup) exitPopup.classList.remove('show')
-    })
-    
-    // Also trigger on exit CTA click
-    const exitCta = document.getElementById('exit-cta')
-    if (exitCta) {
-      exitCta.addEventListener('click', () => {
+    exitCloseBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
         exitPopup.classList.remove('show')
+        noWebPopup.classList.remove('show')
       })
-    }
+    })
+    
+    // Close on background click
+    window.addEventListener('click', (e) => {
+      if (e.target === exitPopup) exitPopup.classList.remove('show')
+      if (e.target === noWebPopup) noWebPopup.classList.remove('show')
+    })
   }
 }
 
