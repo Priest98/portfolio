@@ -345,7 +345,36 @@ if (menuToggle && mobileMenu) {
   mobileLinks.forEach(link => link.addEventListener('click', closeMenu))
 }
 
-// Sticky Header Hide on Scroll
+// Magnetic Micro-physics for CTAs
+const magneticElements = document.querySelectorAll('.primary-cta-btn')
+magneticElements.forEach(el => {
+  let bounds
+  const rotate = gsap.quickSetter(el, "rotation", "deg")
+  const scale = gsap.quickSetter(el, "scale")
+  
+  el.addEventListener('mouseenter', () => {
+    bounds = el.getBoundingClientRect()
+  })
+  
+  el.addEventListener('mousemove', (e) => {
+    if (!bounds) return
+    const x = e.clientX - bounds.left - bounds.width / 2
+    const y = e.clientY - bounds.top - bounds.height / 2
+    const dist = Math.sqrt(x * x + y * y)
+    const maxDist = 100
+    if (dist < maxDist) {
+      const strength = (maxDist - dist) / maxDist
+      rotate(-x * 0.2 * strength)
+      scale(1 + strength * 0.05)
+    }
+  })
+  
+  el.addEventListener('mouseleave', () => {
+    rotate(0)
+    scale(1)
+    bounds = null
+  })
+})
 let lastScroll = 0
 const navbar = document.getElementById('navbar')
 
