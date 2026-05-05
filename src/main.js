@@ -620,18 +620,18 @@ const transformationAnimations = () => {
       scrollTrigger: {
         trigger: buildUp,
         start: 'top top',
-        end: '+=150%',
+        end: '+=80%',
         scrub: 1,
         pin: true,
         anticipatePin: 1
       }
     })
 
-    tl.from('.layer-1', { opacity: 0, scale: 0.9, duration: 1 })
-    tl.from('.block', { y: 100, opacity: 0, stagger: 0.2, duration: 1 })
-    tl.from('.content-reveal', { scale: 0.8, opacity: 0, duration: 1 })
-    tl.to('.build-layer:not(.layer-final)', { opacity: 0, filter: 'blur(20px)', duration: 1 })
-    tl.to('.layer-final img', { opacity: 1, scale: 1, duration: 1.5 })
+    tl.from('.layer-1', { opacity: 0, scale: 0.9, duration: 0.5 })
+    tl.from('.block', { y: 100, opacity: 0, stagger: 0.1, duration: 0.5 })
+    tl.from('.content-reveal', { scale: 0.8, opacity: 0, duration: 0.5 })
+    tl.to('.build-layer:not(.layer-final)', { opacity: 0, filter: 'blur(10px)', duration: 0.5 })
+    tl.to('.layer-final img', { opacity: 1, scale: 1, duration: 1 })
   }
 
 
