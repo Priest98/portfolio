@@ -252,7 +252,7 @@ p {
 
 .hero-layout {
   display: grid;
-  grid-template-columns: 40px 1.2fr 1fr;
+  grid-template-columns: 80px 1fr;
   gap: 100px; /* Increased whitespace */
   align-items: center;
   width: 100%;
