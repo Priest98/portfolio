@@ -192,7 +192,7 @@ p {
   display: flex;
   align-items: center;
   background: var(--island-bg);
-  padding: 8px 24px;
+  padding: 10px 32px; /* Restored to previous more balanced size */
   border-radius: 50px;
   box-shadow: 0 30px 60px rgba(0,0,0,0.3);
   pointer-events: auto;
@@ -387,8 +387,13 @@ p {
   z-index: 20;
   mix-blend-mode: difference;
   color: white; 
-  margin-right: -150px; /* Force overlap into image area */
-  width: 120%; /* Allow it to span wider */
+  margin-right: -150px;
+  width: 120%;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-layout:hover .editorial-headline {
+  transform: translateX(-15px); /* Cinematic parallax shift */
 }
 
 @media (max-width: 1024px) {
@@ -442,8 +447,11 @@ p {
 }
 
 .hero-text p {
-  font-size: 1.3rem;
-  margin-bottom: 4rem;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  max-width: 650px; /* Widened for weight */
+  margin-bottom: 5rem;
+  color: var(--text-muted);
 }
 
 .hero-btns {
@@ -455,8 +463,30 @@ p {
 .hero-image-wrap {
   position: relative;
   width: 100%;
-  border-radius: 2px;
+  border-radius: 4px;
   overflow: hidden;
+  box-shadow: 0 50px 100px rgba(0,0,0,0.05); /* Large soft shadow */
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-image-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  opacity: 0.03; /* 3% Film Grain */
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.hero-layout:hover .hero-image-wrap {
+  transform: scale(1.05); /* Interactive cinematic lift */
+}
+
+.hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .hero-img {
@@ -1372,10 +1402,11 @@ section {
 }
 
 .avail-text {
-  font-size: 0.7rem;
+  font-family: 'Geist Mono', monospace; /* Technical monospaced font */
+  font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 600;
+  letter-spacing: 0.25em;
+  font-weight: 500;
   color: var(--text-muted);
 }
 
