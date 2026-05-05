@@ -358,9 +358,14 @@ section {
 }
 
 .about-visual img {
-  width: 110%; /* Dramatic oversize for 'sexy' feel */
-  height: 110%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-visual:hover img {
+  transform: scale(1.15);
 }
 
 .approach-grid {
