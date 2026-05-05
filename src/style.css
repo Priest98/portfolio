@@ -239,7 +239,11 @@ p {
   color: var(--island-text);
   cursor: pointer;
   padding: 5px;
+  align-items: center;
+  justify-content: center;
 }
+
+
 
 /* Mobile Menu Overlay */
 .mobile-menu {
@@ -1154,6 +1158,12 @@ section {
     /* Responsive */
 @media (max-width: 1024px) {
   .container { padding: 0 40px; }
+  
+  .nav-desktop { display: none; }
+  .menu-toggle { display: flex; }
+
+  .island { padding: 8px 15px; }
+  .island-logo { font-size: 10px; margin-right: 10px; }
   
   .hero-adam {
     padding-top: 160px;

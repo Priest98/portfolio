@@ -441,7 +441,7 @@ const navbar = document.getElementById('navbar')
 
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset
-  if (currentScroll <= 0) {
+  if (currentScroll <= 0 || mobileMenu?.classList.contains('active')) {
     navbar.classList.remove('hidden')
     return
   }
@@ -453,6 +453,7 @@ window.addEventListener('scroll', () => {
   }
   lastScroll = currentScroll
 })
+
 
 // Supabase Configuration
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
