@@ -2470,3 +2470,60 @@ section {
 .project-card:hover {
   transform: translateY(-5px);
 }
+
+/* FINAL MOBILE OVERRIDES (FORCE) */
+@media (max-width: 1024px) {
+  .hero-adam {
+    padding-top: 140px !important;
+    text-align: center !important;
+  }
+  
+  .hero-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 40px !important;
+  }
+  
+  .hero-main { 
+    padding: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .editorial-headline {
+    margin-left: 0 !important;
+    mix-blend-mode: normal !important;
+    color: var(--text-color) !important;
+    text-align: center !important;
+    font-size: 2.4rem !important;
+    max-width: 100% !important;
+    line-height: 1.2 !important;
+  }
+
+  .hero-text p { 
+    margin: 0 auto 2rem auto !important; 
+    max-width: 100% !important;
+    text-align: center !important;
+  }
+  
+  .hero-btns {
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .hero-btns a {
+    width: 100% !important;
+    max-width: 300px;
+  }
+  
+  .hero-image-wrap { 
+    order: -1 !important; 
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 0 auto !important;
+  }
+}
