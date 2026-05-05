@@ -1141,29 +1141,59 @@ section {
   }
   
   .hero-layout {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 40px;
   }
   
   .hero-sidebar { display: none; }
-  .hero-main { padding-right: 0; }
-  
-  .hero-stats {
-    justify-content: center;
-    gap: 40px;
-    margin-bottom: 30px;
+  .hero-main { 
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .stat-box .num { font-size: 2.5rem; }
-  .hero-text p { margin: 0 auto 3rem auto; }
+
+  .hero-availability {
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .editorial-headline {
+    margin-left: 0 !important;
+    mix-blend-mode: normal !important;
+    color: var(--text-color) !important;
+    text-align: center;
+    font-size: 2.8rem;
+    max-width: 100%;
+  }
+
+  .hero-text p { 
+    margin: 0 auto 3rem auto; 
+    max-width: 100%;
+    text-align: center;
+  }
   
   .hero-btns {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    width: 100%;
+  }
+
+  .hero-btns a {
+    width: 100%;
+    text-align: center;
   }
   
-  .hero-image-wrap { order: -1; }
+  .hero-image-wrap { 
+    order: -1; 
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
   
   section { padding: 80px 0; }
   
