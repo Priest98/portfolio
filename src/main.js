@@ -595,32 +595,7 @@ const transformationAnimations = () => {
     }, { passive: false })
   }
 
-  // B. Wireframe to Final Design Reveal
-  const processStack = document.querySelector('.process-image-stack')
-  if (processStack) {
-    gsap.to('.final-layer', {
-      clipPath: 'inset(0% 0 0 0)',
-      ease: 'none',
-      scrollTrigger: {
-        trigger: processStack,
-        start: 'top 60%',
-        end: 'bottom 40%',
-        scrub: true
-      }
-    })
-    
-    gsap.to('.wireframe-img', {
-      scale: 1.1,
-      opacity: 0.1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: processStack,
-        start: 'top 60%',
-        end: 'bottom 40%',
-        scrub: true
-      }
-    })
-  }
+
 
   // C. Text Morph (Value Transformation)
   const morphTrigger = document.querySelector('.morph-trigger')
