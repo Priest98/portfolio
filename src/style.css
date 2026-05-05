@@ -407,11 +407,12 @@ p {
 
 .hero-layout {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 40px;
+  grid-template-columns: 1fr 1fr; /* Balanced ratio for wider image presence */
+  gap: 60px; /* Increased gap for breathability */
   align-items: center;
   width: 100%;
 }
+
 
 .hero-sidebar {
   display: flex;
@@ -1336,17 +1337,66 @@ section {
 .m-url { font-family: monospace; font-size: 8px; letter-spacing: 1px; color: #999; }
 
 .mockup-content { padding: 20px; }
-.m-nav { height: 10px; width: 60px; background: #f0f0f0; margin-bottom: 20px; }
-.m-hero-mock { height: 120px; background: #f5f5f5; margin-bottom: 15px; }
-.m-grid-mock { display: flex; gap: 10px; }
-.m-item { flex: 1; height: 80px; background: #fafafa; }
+.m-nav-real {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.m-logo-small {
+  font-family: var(--font-serif);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.m-hero-mock-real {
+  width: 100%;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 15px;
+  background: #f0f0f0;
+}
+.m-hero-mock-real img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+}
+.m-hero-text-small {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.m-hero-text-small .line { height: 2px; width: 40px; background: white; }
+.m-hero-text-small .line.short { width: 20px; }
+.m-grid-mock-real {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.m-item-real {
+  height: 60px;
+  background: #f5f5f5;
+  overflow: hidden;
+}
+.m-item-real img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 @media (max-width: 1024px) {
   .disruption-container { flex-direction: column; min-height: auto; }
   .disruption-left { height: auto; position: static; padding: 100px 30px; }
   .disruption-right { height: auto; padding-bottom: 100px; }
-  .mockup-reveal { position: static; transform: none; width: 100%; opacity: 1; margin-top: 50px; padding: 0 30px; }
+  .mockup-reveal { position: static !important; transform: none !important; width: 100% !important; opacity: 1 !important; margin-top: 50px !important; padding: 0 30px !important; display: block !important; }
+  .mockup-frame { max-width: 400px; margin: 0 auto; }
 }
+
 
 /* Footer */
 #footer-adam {
@@ -2505,7 +2555,8 @@ section {
   .hero-image-wrap { 
     order: -1 !important; 
     width: 100% !important;
-    max-width: 320px !important;
-    margin: 0 auto !important;
+    max-width: 450px !important; /* Increased for better presence */
+    margin: 0 auto 2rem auto !important;
   }
 }
+
