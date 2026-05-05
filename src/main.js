@@ -622,7 +622,7 @@ const transformationAnimations = () => {
         start: 'top top',
         end: '+=80%',
         scrub: 1,
-        pin: window.innerWidth > 1024,
+        pin: true,
         anticipatePin: 1
       }
     })
