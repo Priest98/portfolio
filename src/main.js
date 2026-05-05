@@ -199,15 +199,7 @@ const intelligentSystems = () => {
   document.querySelectorAll('.current-month').forEach(el => el.textContent = currentMonth)
   document.querySelectorAll('.next-month').forEach(el => el.textContent = nextMonth)
 
-  // B. Returning Visitor Personalization
-  const hasVisited = localStorage.getItem('adam_portfolio_visited')
-  if (hasVisited) {
-    const headline = document.getElementById('hero-headline')
-    const subtext = document.getElementById('hero-subtext')
-    if (headline) headline.innerHTML = `Welcome back. Ready to build your <span class="italic">Global Authority?</span>`
-    if (subtext) subtext.textContent = "You've seen the work. Now let's transform your brand into an elite digital experience."
-  }
-  localStorage.setItem('adam_portfolio_visited', 'true')
+
 
   // C. Interactive Builder
   const aestheticBtns = document.querySelectorAll('.aesthetic-btn')
