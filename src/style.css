@@ -2062,7 +2062,7 @@ section {
 
 .lookbook-item {
   position: relative;
-  flex: 0 0 400px;
+  flex: 0 0 600px;
   background: transparent;
   overflow: hidden;
 }
@@ -2111,7 +2111,7 @@ section {
 
 @media (max-width: 768px) {
   .lookbook-item {
-    flex: 0 0 300px;
+    flex: 0 0 85vw;
   }
 }
 
