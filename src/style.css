@@ -1120,116 +1120,53 @@ section {
 
     /* Responsive */
 @media (max-width: 1024px) {
-  .container { padding: 0 30px; }
-  
-  #navbar { top: 20px; }
-  
-  .island {
-    width: fit-content;
-    min-width: 200px;
-    margin: 0 auto;
-    justify-content: space-between;
-    padding: 8px 18px;
-  }
-  
-  .nav-desktop { display: none; }
-  .menu-toggle { display: block; }
+  .container { padding: 0 40px; }
   
   .hero-adam {
-    padding-top: 140px;
-    padding-bottom: 60px;
-    text-align: center;
+    padding-top: 160px;
+    padding-bottom: 80px;
   }
-  
+
   .hero-layout {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
-  }
-  
-  .hero-sidebar { display: none; }
-  .hero-main { 
-    padding: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .hero-availability {
-    justify-content: center;
-    margin-bottom: 2rem;
+    gap: 60px;
   }
 
   .editorial-headline {
-    margin-left: 0 !important;
-    mix-blend-mode: normal !important;
-    color: var(--text-color) !important;
-    text-align: center;
-    font-size: 2.8rem;
-    max-width: 100%;
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    line-height: 1.1;
   }
 
-  .hero-text p { 
-    margin: 0 auto 3rem auto; 
-    max-width: 100%;
-    text-align: center;
-  }
-  
-  .hero-btns {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
+  /* Tablet Specific: 2-Column Grids */
+  @media (min-width: 769px) {
+    .insights-grid, .services-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .disruption-container {
+      flex-direction: row !important;
+      min-height: 150vh;
+    }
+    
+    .disruption-left, .disruption-right {
+      flex: 0 0 50% !important;
+    }
+    
+    .mockup-reveal {
+      width: 40% !important;
+      position: fixed !important;
+      opacity: 0;
+    }
   }
 
-  .hero-btns a {
-    width: 100%;
-    text-align: center;
-  }
+  .hero-sidebar { display: none; }
   
-  .hero-image-wrap { 
-    order: -1; 
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  section { padding: 80px 0; }
-  
-  .about-editorial {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  
-  .about-visual { order: -1; }
-  
-  .projects-grid {
-    grid-template-columns: 1fr;
-    gap: 50px;
-  }
-  
-  .project-card.horizontal { flex: 0 0 100% !important; }
-  
-  .contact-layout {
+  .about-editorial, .contact-layout {
     grid-template-columns: 1fr;
     gap: 60px;
   }
-  
-  .contact-links {
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 4rem;
-  }
-
-  .build-up-canvas {
-    aspect-ratio: 4/5;
-    min-height: 400px;
-  }
-  
-  .build-heading { font-size: 2rem; }
-  .build-para { font-size: 0.9rem; }
 }
 
 @media (max-width: 768px) {
