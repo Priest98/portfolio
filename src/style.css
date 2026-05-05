@@ -957,9 +957,11 @@ section {
   #navbar { top: 20px; }
   
   .island {
-    width: calc(100% - 40px);
+    width: fit-content;
+    min-width: 200px;
+    margin: 0 auto;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 8px 18px;
   }
   
   .nav-desktop { display: none; }
