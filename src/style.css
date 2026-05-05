@@ -713,6 +713,22 @@ section {
   border-bottom-color: var(--text-color);
 }
 
+.brand-quote {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-muted);
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  .brand-quote {
+    text-align: center;
+    margin: 2rem auto 0 auto;
+  }
+}
+
 .btn-outline {
   display: inline-block;
   text-decoration: none;
