@@ -2018,24 +2018,25 @@ section {
   display: flex;
   gap: 40px;
   width: fit-content;
+  align-items: center;
 }
 
 .lookbook-item {
   position: relative;
-  flex: 0 0 450px;
-  background: #f9f9f9;
+  flex: 0 0 400px;
+  background: transparent;
   overflow: hidden;
 }
 
 .lookbook-item img {
   width: 100%;
-  height: 600px;
-  object-fit: cover;
+  height: auto;
+  display: block;
   transition: transform 1.2s var(--transition-luxury);
 }
 
 .lookbook-item:hover img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .lookbook-info {
@@ -2072,9 +2073,6 @@ section {
 @media (max-width: 768px) {
   .lookbook-item {
     flex: 0 0 300px;
-  }
-  .lookbook-item img {
-    height: 450px;
   }
 }
 
