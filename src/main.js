@@ -123,6 +123,8 @@ window.addEventListener('load', () => {
         invalidateOnRefresh: true,
       }
     })
+    
+    ScrollTrigger.refresh()
 
     // Animate each project's info as it enters the view
     const projectInfos = projectsGrid.querySelectorAll('.project-info')
@@ -640,21 +642,7 @@ const transformationAnimations = () => {
     tl.to('.layer-final img', { opacity: 1, scale: 1, duration: 1.5 })
   }
 
-  // E. Project Section Scroll Evolution
-  const projectCards = gsap.utils.toArray('.project-card')
-  projectCards.forEach(card => {
-    gsap.from(card, {
-      scale: 0.9,
-      opacity: 0,
-      y: 50,
-      scrollTrigger: {
-        trigger: card,
-        start: 'top 90%',
-        end: 'top 60%',
-        scrub: true
-      }
-    })
-  })
+
 }
 
 transformationAnimations()
