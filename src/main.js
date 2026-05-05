@@ -613,26 +613,7 @@ const transformationAnimations = () => {
     setInterval(morphTimeline, 4000)
   }
 
-  // D. Signature Build-up (Strategic Intent Reveal)
-  const buildUp = document.getElementById('signature-reveal')
-  if (buildUp) {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: buildUp,
-        start: 'top top',
-        end: '+=80%',
-        scrub: 1,
-        pin: true,
-        anticipatePin: 1
-      }
-    })
 
-    tl.from('.layer-1', { opacity: 0, scale: 0.9, duration: 0.5 })
-    tl.from('.block', { y: 100, opacity: 0, stagger: 0.1, duration: 0.5 })
-    tl.from('.content-reveal', { scale: 0.8, opacity: 0, duration: 0.5 })
-    tl.to('.build-layer:not(.layer-final)', { opacity: 0, filter: 'blur(10px)', duration: 0.5 })
-    tl.to('.layer-final img', { opacity: 1, scale: 1, duration: 1 })
-  }
 
 
 }
