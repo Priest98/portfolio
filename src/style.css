@@ -713,15 +713,6 @@ section {
   border-bottom-color: var(--text-color);
 }
 
-.form-footer-quote {
-  margin-top: 2.5rem;
-  font-size: 0.85rem;
-  font-style: italic;
-  color: var(--text-muted);
-  text-align: center;
-  opacity: 0.8;
-}
-
 .btn-outline {
   display: inline-block;
   text-decoration: none;
