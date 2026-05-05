@@ -173,6 +173,73 @@ const contactSection = document.querySelector('.contact-adam')
 if (contactSection) {
   const contactReveals = contactSection.querySelectorAll('.label, .contact-quote, .main-cta, .sub-cta, .contact-links, .contact-form')
   gsap.set(contactReveals, { autoAlpha: 1, visibility: 'visible' })
+  // E. Global Polish (Cursor & Progress)
+  const cursor = document.querySelector('.custom-cursor')
+  const progressBar = document.querySelector('.scroll-progress')
+
+  if (cursor) {
+    window.addEventListener('mousemove', (e) => {
+      gsap.to(cursor, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.1,
+        ease: 'power2.out'
+      })
+    })
+
+    const hoverables = document.querySelectorAll('a, button, .project-card, .lookbook-item')
+    hoverables.forEach(item => {
+      item.addEventListener('mouseenter', () => cursor.classList.add('active'))
+      item.addEventListener('mouseleave', () => cursor.classList.remove('active'))
+    })
+  }
+
+  window.addEventListener('scroll', () => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight
+    const progress = (window.scrollY / totalHeight) * 100
+    if (progressBar) progressBar.style.width = `${progress}%`
+  })
+
+    // F. Instagram Disruption Sticky Animation
+    gsap.to('.mockup-reveal', {
+      scrollTrigger: {
+        trigger: '.disruption-section',
+        start: 'center center',
+        end: 'bottom center',
+        scrub: true
+      },
+      opacity: 1,
+      scale: 1,
+      pointerEvents: 'auto'
+    })
+
+    gsap.to('.chaos-stack', {
+      scrollTrigger: {
+        trigger: '.disruption-section',
+        start: 'center center',
+        end: 'bottom center',
+        scrub: true
+      },
+      opacity: 0,
+      y: -100
+    })
+
+    // G. Portfolio Background Morph
+    const lookbookItems = document.querySelectorAll('.lookbook-item')
+    const lookbookSection = document.querySelector('.lookbook-section')
+
+    lookbookItems.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const bg = item.getAttribute('data-bg')
+        if (bg && lookbookSection) {
+          lookbookSection.style.setProperty('--lookbook-bg', `url(${bg})`)
+          lookbookSection.classList.add('morphed')
+        }
+      })
+      item.addEventListener('mouseleave', () => {
+        if (lookbookSection) lookbookSection.classList.remove('morphed')
+      })
+    })
   
   gsap.from(contactReveals, {
     y: 50,

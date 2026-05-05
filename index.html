@@ -26,7 +26,10 @@
     <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "YOUR_CLARITY_ID");</script>
   </head>
   <body>
-    <div id="app">
+    <div id="app-wrapper">
+      <div class="noise-overlay"></div>
+      <div class="scroll-progress"></div>
+      <div class="custom-cursor"></div>
       <div class="scroll-progress"></div>
       <!-- Abstract Background Elements -->
       <div class="abstract-bg fluid-1"></div>
@@ -71,34 +74,32 @@
       <main>
         <!-- Hero Section -->
         <section id="hero" class="hero-adam">
+          <div class="hero-sidebar left">
+            <div class="sidebar-stat">
+              <span class="s-num">05</span>
+              <span class="s-label">BRANDS</span>
+            </div>
+          </div>
+          <div class="hero-sidebar right">
+            <div class="sidebar-stat">
+              <span class="s-num">15+</span>
+              <span class="s-label">PROJECTS</span>
+            </div>
+          </div>
+
           <div class="container">
             <div class="hero-layout">
-              <div class="hero-sidebar">
-                <span class="vertical-text">WEB DESIGNER</span>
-                <span class="vertical-text year">2026</span>
-              </div>
-              
               <div class="hero-main">
-                <div class="hero-stats reveal">
-                  <div class="stat-box">
-                    <span class="num">05</span>
-                    <span class="label">Brands Worked With</span>
-                  </div>
-                  <div class="stat-box">
-                    <span class="num">15+</span>
-                    <span class="label">Projects Completed</span>
-                  </div>
-                </div>
                 <div class="hero-availability reveal">
                   <span class="dot"></span> 
                   <span class="avail-text">Now Booking for <span class="next-month">May</span></span>
                 </div>
                 
                 <div class="hero-text">
-                  <h1 class="reveal-text" id="hero-headline">Your brand get steeze, but your sales process be like roadside market. <br> <span class="italic">Fix the disconnect.</span></h1>
+                  <h1 class="reveal-text editorial-headline" id="hero-headline">Your brand get steeze, but your sales process be like roadside market. <br> <span class="italic">Fix the disconnect.</span></h1>
                   <p class="reveal" id="hero-subtext">I build solid digital homes for fashion labels wey don big pass "Link in Bio." Level up your brand image. Make your money work while you sleep.</p>
                   <div class="hero-btns">
-                    <a href="#contact" class="primary-cta-btn reveal">Secure My Website <i data-lucide="sparkles"></i></a>
+                    <a href="https://wa.me/2349136599914" target="_blank" class="primary-cta-btn reveal">Secure My Website <i data-lucide="sparkles"></i></a>
                     <a href="#projects" class="btn-underline reveal">See My Work <i data-lucide="arrow-right"></i></a>
                   </div>
                 </div>
@@ -111,26 +112,41 @@
           </div>
         </section>
 
-        <!-- Personal Intro Video Section -->
-        <section id="intro" class="intro-video-section reveal">
-          <div class="container">
-            <div class="video-grid">
-              <div class="video-content">
+        <!-- Instagram Disruption Section -->
+        <section id="disruption" class="disruption-section">
+          <div class="disruption-container">
+            <div class="disruption-left">
+              <div class="sticky-message">
                 <span class="label">The Disruption</span>
-                <h2>Instagram na house wey you rent; <br>Mark Zuckerberg fit <span class="italic">pursue you anytime.</span></h2>
-                <p>You post, you wait, you pray. You’re answering "How much?" in the comments and chasing bank alerts in the DM. This no be business; na manual labor you dey do so.</p>
-                <div class="video-features">
-                  <div class="v-feat"><i data-lucide="x-circle"></i> Orders dey get lost for "Request" folder</div>
-                  <div class="v-feat"><i data-lucide="x-circle"></i> Every minute: "What’s your size chart?"</div>
-                </div>
+                <h2 class="editorial-title">Instagram na house <br><span class="italic">wey you rent.</span></h2>
+                <p>You’re running a luxury boutique on a borrowed veranda. Every DM is a potential leak. Every "DM for Price" is a lost client.</p>
+                <div class="tech-line"></div>
               </div>
-              <div class="video-player-wrap">
-                <!-- Placeholder for actual video. User can replace the src. -->
-                <div class="video-placeholder">
-                  <div class="play-overlay">
-                    <i data-lucide="play" style="width: 48px; height: 48px; color: #fff;"></i>
+            </div>
+            <div class="disruption-right">
+              <div class="chaos-stack">
+                <div class="chaos-item dm-bubble">"Is this available?"</div>
+                <div class="chaos-item dm-bubble">"Price abeg?"</div>
+                <div class="chaos-item screenshot">
+                  <div class="sc-line"></div>
+                  <div class="sc-line"></div>
+                </div>
+                <div class="chaos-item dm-bubble">"I sent payment since..."</div>
+              </div>
+              <div class="mockup-reveal">
+                <div class="mockup-frame">
+                  <div class="mockup-header">
+                    <div class="m-dot"></div>
+                    <div class="m-url">WWW.YOURBRAND.COM</div>
                   </div>
-                  <img src="/hero_adam.png" alt="Video Placeholder" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.4;">
+                  <div class="mockup-content">
+                    <div class="m-nav"></div>
+                    <div class="m-hero-mock"></div>
+                    <div class="m-grid-mock">
+                      <div class="m-item"></div>
+                      <div class="m-item"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -222,7 +238,6 @@
           </div>
         </section>
 
-        <!-- Signature Build-up Section -->
         <!-- Editorial Lookbook Section -->
         <section class="lookbook-section reveal">
           <div class="lookbook-header container">
@@ -231,32 +246,36 @@
           </div>
           <div class="lookbook-container">
             <div class="lookbook-track">
-              <div class="lookbook-item">
+              <div class="lookbook-item" data-bg="/editorial/editorial_1.png">
                 <img src="/editorial/editorial_1.png" alt="Editorial Look 1" loading="lazy">
                 <div class="lookbook-info">
                   <span class="l-year">2026</span>
                   <span class="l-title">Fiastyle Series</span>
+                  <span class="l-result">Result: 40% Increase in Enrollment</span>
                 </div>
               </div>
-              <div class="lookbook-item">
+              <div class="lookbook-item" data-bg="/editorial/editorial_2.png">
                 <img src="/editorial/editorial_2.png" alt="Editorial Look 2" loading="lazy">
                 <div class="lookbook-info">
                   <span class="l-year">2026</span>
                   <span class="l-title">Couture Poise</span>
+                  <span class="l-result">Result: Automated 200+ monthly orders</span>
                 </div>
               </div>
-              <div class="lookbook-item">
+              <div class="lookbook-item" data-bg="/editorial/editorial_3.png">
                 <img src="/editorial/editorial_3.png" alt="Editorial Look 3" loading="lazy">
                 <div class="lookbook-info">
                   <span class="l-year">2026</span>
                   <span class="l-title">Nigerian Luxury</span>
+                  <span class="l-result">Result: Global payment integration success</span>
                 </div>
               </div>
-              <div class="lookbook-item">
+              <div class="lookbook-item" data-bg="/editorial/editorial_4.png">
                 <img src="/editorial/editorial_4.png" alt="Editorial Look 4" loading="lazy">
                 <div class="lookbook-info">
                   <span class="l-year">2026</span>
                   <span class="l-title">Structural Grace</span>
+                  <span class="l-result">Result: Scaled from Instagram to flagship</span>
                 </div>
               </div>
               <div class="lookbook-item">
@@ -408,20 +427,44 @@
               <h2>How we <span class="italic">take start.</span></h2>
             </div>
             <div class="insights-grid">
-              <div class="insight-card">
-                <span class="insight-num">01</span>
-                <h3>The Foundation</h3>
-                <p>Full brand identity and website for new labels wey wan start well and look professional from day one.</p>
+              <div class="insight-card glass-accordion">
+                <div class="card-header">
+                  <span class="insight-num">01</span>
+                  <h3>The Foundation</h3>
+                </div>
+                <div class="card-content">
+                  <p>Comprehensive audit of your current visual identity and mapping of every customer friction point.</p>
+                  <ul class="tech-specs">
+                    <li>Digital Audit</li>
+                    <li>Brand Positioning</li>
+                  </ul>
+                </div>
               </div>
-              <div class="insight-card">
-                <span class="insight-num">02</span>
-                <h3>The Elevation</h3>
-                <p>We go wipe your old site, give am "international" facelift wey go make you fit charge wetin you worth.</p>
+              <div class="insight-card glass-accordion">
+                <div class="card-header">
+                  <span class="insight-num">02</span>
+                  <h3>The Elevation</h3>
+                </div>
+                <div class="card-content">
+                  <p>Building your flagship digital boutique with custom motion that proves your luxury status.</p>
+                  <ul class="tech-specs">
+                    <li>Custom GSAP Motion</li>
+                    <li>Editorial UX</li>
+                  </ul>
+                </div>
               </div>
-              <div class="insight-card">
-                <span class="insight-num">03</span>
-                <h3>The Expansion</h3>
-                <p>Special e-commerce setup for brands ready to ship worldwide and receive payment for any currency.</p>
+              <div class="insight-card glass-accordion">
+                <div class="card-header">
+                  <span class="insight-num">03</span>
+                  <h3>The Expansion</h3>
+                </div>
+                <div class="card-content">
+                  <p>Special e-commerce setup for brands ready to ship worldwide and receive payment for any currency.</p>
+                  <ul class="tech-specs">
+                    <li>Global Checkout</li>
+                    <li>Inventory Sync</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
