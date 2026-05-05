@@ -387,8 +387,8 @@ p {
   z-index: 20;
   mix-blend-mode: difference;
   color: white; 
-  margin-right: -150px;
-  width: 120%;
+  margin-right: -80px; /* Subtle overlap */
+  margin-bottom: 3rem !important;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -398,7 +398,7 @@ p {
 
 @media (max-width: 1024px) {
   .hero-sidebar { display: none; }
-  .editorial-headline { margin-left: 0; mix-blend-mode: normal; color: var(--text-color); }
+  .editorial-headline { margin-left: 0; mix-blend-mode: normal; color: var(--text-color); margin-right: 0; }
 }
 
 .hero-layout {
@@ -427,6 +427,8 @@ p {
 
 .hero-main {
   padding-right: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .hero-stats {
@@ -450,6 +452,7 @@ p {
   font-size: 1.15rem;
   line-height: 1.8;
   max-width: 650px; /* Widened for weight */
+  margin-top: 2rem; /* Add top margin for safety */
   margin-bottom: 5rem;
   color: var(--text-muted);
 }
