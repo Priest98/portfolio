@@ -386,8 +386,9 @@ p {
   position: relative;
   z-index: 20;
   mix-blend-mode: difference;
-  color: white; /* Will invert over the image */
-  margin-left: -20px; /* Shift for overlap */
+  color: white; 
+  margin-right: -150px; /* Force overlap into image area */
+  width: 120%; /* Allow it to span wider */
 }
 
 @media (max-width: 1024px) {
@@ -397,8 +398,8 @@ p {
 
 .hero-layout {
   display: grid;
-  grid-template-columns: 80px 1fr 1fr;
-  gap: 100px; /* Increased whitespace */
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
   align-items: center;
   width: 100%;
 }
