@@ -309,8 +309,6 @@ p {
 .hero-image-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 4/5;
-  background: transparent;
   border-radius: 2px;
   overflow: hidden;
 }
@@ -444,7 +442,6 @@ section {
 .project-visual {
   position: relative;
   width: 100%;
-  aspect-ratio: 4/5;
   background: #f0f0f0;
   border-radius: 2px;
   overflow: hidden;
@@ -452,8 +449,8 @@ section {
 
 .project-visual img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1573,7 +1570,6 @@ section {
 
 .reveal-slider {
   position: relative;
-  aspect-ratio: 4/5;
   background: #000;
   overflow: hidden;
   border: 1px solid var(--border-color);
@@ -1695,7 +1691,6 @@ section {
 }
 .v-feat i { width: 14px; color: var(--accent-color); }
 .video-player-wrap {
-  aspect-ratio: 16/9;
   background: #111;
   border: 1px solid var(--border-color);
   position: relative;
@@ -1767,7 +1762,6 @@ section {
 .builder-preview {
   background: #000;
   border: 1px solid var(--border-color);
-  aspect-ratio: 16/10;
   padding: 40px;
   position: relative;
   overflow: hidden;
@@ -1807,7 +1801,6 @@ section {
   gap: 20px;
 }
 .preview-item {
-  aspect-ratio: 4/3;
   border: 1px solid rgba(255,255,255,0.1);
   background: rgba(255,255,255,0.03);
 }
@@ -1831,7 +1824,6 @@ section {
 .preview-editorial .preview-item { 
   background: rgba(255,255,255,0.1); 
   border: none;
-  aspect-ratio: 16/9;
 }
 
 .preview-asymmetric .preview-grid { gap: 40px; }
@@ -1951,7 +1943,6 @@ section {
 .comparison-slider {
   position: relative;
   width: 100%;
-  aspect-ratio: 16/10;
   overflow: hidden;
   border: 1px solid var(--border-color);
   cursor: ew-resize;
@@ -1972,8 +1963,8 @@ section {
 }
 .comparison-slider img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
 }
 .comp-label {
   position: absolute;
@@ -2024,7 +2015,6 @@ section {
 .build-up-canvas {
   position: relative;
   width: 100%;
-  aspect-ratio: 16/8;
   background: #050505;
   border: 1px solid var(--border-color);
   overflow: hidden;
@@ -2073,8 +2063,8 @@ section {
 }
 .build-final-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   opacity: 0;
   transform: scale(1.1);
 }
