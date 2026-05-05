@@ -2015,6 +2015,8 @@ section {
 .build-up-canvas {
   position: relative;
   width: 100%;
+  aspect-ratio: 16/9;
+  min-height: 500px;
   background: #050505;
   border: 1px solid var(--border-color);
   overflow: hidden;
@@ -2063,8 +2065,8 @@ section {
 }
 .build-final-img {
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   opacity: 0;
   transform: scale(1.1);
 }
