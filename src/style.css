@@ -2612,7 +2612,33 @@ section {
     flex-direction: column !important;
   }
 
+  /* 2.5 Portfolio (Projects Grid) Fix */
+  .projects-grid {
+    grid-template-columns: 1fr !important; /* Single column for luxury focus */
+    gap: 60px !important;
+    margin: 0 -20px !important; /* Full bleed image container */
+    width: calc(100% + 40px) !important;
+  }
+
+  .project-card {
+    margin-top: 0 !important; /* Remove desktop offsets */
+  }
+
+  .project-visual {
+    border-radius: 0 !important; /* Magazine edge-to-edge */
+    height: 70vw !important;
+  }
+
+  .project-info {
+    padding: 30px 20px !important; /* Add padding back to text info */
+  }
+
+  .project-desc {
+    max-width: 100% !important;
+  }
+
   .dm-bubble {
+
     max-width: 80% !important;
     padding: 15px 20px !important;
     font-size: 0.9rem !important;
@@ -2708,17 +2734,20 @@ section {
 
   /* 5. Sticky FAB & Technical Polish */
   .smart-cta-pill {
-    width: calc(100% - 40px) !important;
+    width: fit-content !important; /* Shortened */
+    max-width: 90% !important;
     bottom: 30px !important;
-    left: 20px !important;
-    transform: translateY(150px) translateX(0) !important;
-    padding: 12px 12px 12px 25px !important;
-    border-radius: 4px !important; /* More industrial/editorial */
+    left: 50% !important;
+    transform: translateY(150px) translateX(-50%) !important;
+    padding: 12px 15px 12px 25px !important;
+    border-radius: 50px !important; /* Pill shape for FAB */
+    white-space: nowrap;
   }
 
   .smart-cta-pill.active {
-    transform: translateY(0) translateX(0) !important;
+    transform: translateY(0) translateX(-50%) !important;
   }
+
 
   /* Micro-interactions */
   a, button, .insight-card {
