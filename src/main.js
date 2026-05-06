@@ -686,6 +686,59 @@ const transformationAnimations = () => {
 
 }
 
+// 10. MOBILE EDITORIAL ENHANCEMENTS
+const mobileEditorialEnhancements = () => {
+  if (window.innerWidth > 1024) return
+
+  // A. Staggered Chat Sequence
+  const bubbles = document.querySelectorAll('.dm-bubble')
+  if (bubbles.length > 0) {
+    gsap.to(bubbles, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.3,
+      duration: 0.8,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.disruption-section',
+        start: 'top 40%',
+        toggleActions: 'play none none none'
+      }
+    })
+  }
+
+  // B. Interactive Service Drawer (Click-based)
+  const serviceCards = document.querySelectorAll('.insight-card.glass-accordion')
+  serviceCards.forEach(card => {
+    card.addEventListener('click', () => {
+      // Toggle current card
+      const isActive = card.classList.contains('active')
+      
+      // Close others (Optional, for 'clean' feel)
+      serviceCards.forEach(c => c.classList.remove('active'))
+      
+      if (!isActive) {
+        card.classList.add('active')
+      }
+    })
+  })
+
+  // C. Sticky FAB Visibility (After 'Problem' section)
+  const smartCta = document.getElementById('smart-cta')
+  if (smartCta) {
+    // Reset any desktop triggers if necessary, but here we just add a new one
+    ScrollTrigger.create({
+      trigger: '#disruption',
+      start: 'bottom center',
+      onEnter: () => smartCta.classList.add('active'),
+      onLeaveBack: () => smartCta.classList.remove('active')
+    })
+  }
+}
+
+mobileEditorialEnhancements()
+
 transformationAnimations()
 
 conversionSystem()
+

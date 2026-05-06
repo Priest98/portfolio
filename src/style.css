@@ -2503,59 +2503,232 @@ section {
 }
 
 /* FINAL MOBILE OVERRIDES (FORCE) */
+/* --- HIGH-END MOBILE EDITORIAL TRANSFORMATION --- */
 @media (max-width: 1024px) {
+  /* 0. Global Mobile Polish */
+  .container { 
+    padding: 0 20px !important; /* Fixed 20px Safe Area */
+  }
+
+  section {
+    padding: 120px 0 !important; /* Breathable but managed scroll */
+  }
+
+  /* 1. Hero Editorial Overlap */
   .hero-adam {
-    padding-top: 140px !important;
-    text-align: center !important;
+    padding-top: 100px !important;
+    text-align: left !important; /* High-end editorial feel */
+    overflow: visible !important;
   }
   
   .hero-layout {
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important;
-    gap: 40px !important;
-  }
-  
-  .hero-main { 
-    padding: 0 !important;
-    width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-
-  .editorial-headline {
-    margin-left: 0 !important;
-    mix-blend-mode: normal !important;
-    color: var(--text-color) !important;
-    text-align: center !important;
-    font-size: 2.4rem !important;
-    max-width: 100% !important;
-    line-height: 1.2 !important;
-  }
-
-  .hero-text p { 
-    margin: 0 auto 2rem auto !important; 
-    max-width: 100% !important;
-    text-align: center !important;
-  }
-  
-  .hero-btns {
-    flex-direction: column !important;
-    align-items: center !important;
-    width: 100% !important;
-  }
-
-  .hero-btns a {
-    width: 100% !important;
-    max-width: 300px;
+    align-items: flex-start !important;
+    gap: 0 !important;
   }
   
   .hero-image-wrap { 
     order: -1 !important; 
+    width: calc(100% + 40px) !important;
+    max-width: none !important;
+    margin: 0 -20px 0 -20px !important; /* Full bleed image */
+    border-radius: 0 !important;
+    height: 60vh !important;
+  }
+
+  .hero-img {
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 100;
+    margin-top: -60px !important; /* Editorial Overlap */
+    background: transparent !important;
     width: 100% !important;
-    max-width: 450px !important; /* Increased for better presence */
-    margin: 0 auto 2rem auto !important;
+    padding: 0 !important;
+  }
+
+  .editorial-headline {
+    font-size: clamp(2.8rem, 12vw, 4.5rem) !important; /* Large Bold Headline */
+    line-height: 0.95 !important;
+    letter-spacing: -0.05em !important;
+    mix-blend-mode: difference !important;
+    color: white !important;
+    margin-bottom: 2rem !important;
+    text-align: left !important;
+  }
+
+  .hero-text p {
+    font-size: 1.1rem !important;
+    margin: 0 0 2.5rem 0 !important;
+    max-width: 90% !important;
+    text-align: left !important;
+    color: var(--text-color) !important;
+    mix-blend-mode: normal !important;
+  }
+
+  /* Frame Accents */
+  .hero-frame-accents {
+    display: flex !important;
+    justify-content: space-between;
+    position: absolute;
+    top: 180px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .frame-left, .frame-right {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0.3;
+    white-space: nowrap;
+  }
+
+  .frame-left {
+    transform: rotate(90deg) translateX(-50%);
+    transform-origin: left top;
+    margin-left: 15px;
+  }
+
+  .frame-right {
+    transform: rotate(-90deg) translateX(50%);
+    transform-origin: right top;
+    margin-right: 15px;
+  }
+
+  /* 2. The Disruption (Chat Sequence) */
+  .chaos-stack {
+    padding: 60px 0 !important;
+    gap: 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .dm-bubble {
+    max-width: 80% !important;
+    padding: 15px 20px !important;
+    font-size: 0.9rem !important;
+    opacity: 0; /* Hidden initially for JS animation */
+    transform: translateY(20px);
+  }
+
+  .client-bubble {
+    align-self: flex-start !important;
+    border: 1px solid rgba(0,0,0,0.1) !important;
+    background: white !important;
+    color: var(--text-color) !important;
+    border-radius: 20px 20px 20px 2px !important;
+  }
+
+  .brand-bubble {
+    align-self: flex-end !important;
+    background: var(--text-color) !important;
+    color: white !important;
+    border-radius: 20px 20px 2px 20px !important;
+    font-weight: 500 !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+  }
+
+  .screenshot.client-bubble {
+    width: 60% !important;
+    aspect-ratio: 4/3;
+  }
+
+  /* 3. Portfolio & Lookbook Full-Bleed */
+  .lookbook-section {
+    padding: 80px 0 !important;
+  }
+
+  .lookbook-container {
+    padding: 0 !important; /* Full bleed impact */
+    margin: 0 -20px !important;
+    width: calc(100% + 40px) !important;
+  }
+
+  .lookbook-track {
+    gap: 2px !important; /* Minimal gap for magazine feel */
+  }
+
+  .lookbook-item {
+    flex: 0 0 100vw !important; /* One image per view */
+  }
+
+  .lookbook-info {
+    bottom: 20px !important;
+    left: 20px !important;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 2px;
+    width: fit-content;
+  }
+
+  .l-title {
+    font-size: 1.1rem !important;
+    color: white !important;
+  }
+
+  /* 4. Services Interactive Drawer */
+  .insights-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 15px !important;
+  }
+
+  .insight-card.glass-accordion {
+    height: auto !important;
+    padding: 25px !important;
+    cursor: pointer;
+  }
+
+  .insight-card .card-content {
+    display: none; /* Controlled by JS */
+    padding-top: 20px;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .insight-card.active .card-content {
+    display: block;
+    animation: slideDown 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 5. Sticky FAB & Technical Polish */
+  .smart-cta-pill {
+    width: calc(100% - 40px) !important;
+    bottom: 30px !important;
+    left: 20px !important;
+    transform: translateY(150px) translateX(0) !important;
+    padding: 12px 12px 12px 25px !important;
+    border-radius: 4px !important; /* More industrial/editorial */
+  }
+
+  .smart-cta-pill.active {
+    transform: translateY(0) translateX(0) !important;
+  }
+
+  /* Micro-interactions */
+  a, button, .insight-card {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .primary-cta-btn:active, .smart-cta-pill:active {
+    transform: scale(0.98) !important;
+    transition: transform 0.1s ease;
   }
 }
+
 
