@@ -2555,11 +2555,11 @@ section {
     font-size: clamp(2.8rem, 12vw, 4.5rem) !important; /* Large Bold Headline */
     line-height: 0.95 !important;
     letter-spacing: -0.05em !important;
-    mix-blend-mode: difference !important;
-    color: white !important;
+    color: var(--text-color) !important; /* Solid black/text color */
     margin-bottom: 2rem !important;
     text-align: left !important;
   }
+
 
   .hero-text p {
     font-size: 1.1rem !important;
