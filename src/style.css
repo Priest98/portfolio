@@ -2514,10 +2514,10 @@ section {
     padding: 120px 0 !important; /* Breathable but managed scroll */
   }
 
-  /* 1. Hero Editorial Overlap */
+  /* 1. Hero Editorial Overlap & Depth */
   .hero-adam {
     padding-top: 100px !important;
-    text-align: left !important; /* High-end editorial feel */
+    text-align: left !important;
     overflow: visible !important;
   }
   
@@ -2532,221 +2532,159 @@ section {
     order: -1 !important; 
     width: calc(100% + 40px) !important;
     max-width: none !important;
-    margin: 0 -20px 0 -20px !important; /* Full bleed image */
+    margin: 0 -20px 0 -20px !important;
     border-radius: 0 !important;
-    height: 60vh !important;
+    height: 65vh !important;
+    overflow: hidden;
   }
 
   .hero-img {
-    height: 100% !important;
+    height: 120% !important; /* Extra height for parallax */
+    width: 100% !important;
     object-fit: cover !important;
+    object-position: center top !important;
   }
 
   .hero-text {
     position: relative;
     z-index: 100;
-    margin-top: -60px !important; /* Editorial Overlap */
+    margin-top: -30px !important; /* Architectural Overlap */
     background: transparent !important;
     width: 100% !important;
     padding: 0 !important;
+    pointer-events: none; /* Let clicks pass to images if needed */
   }
 
   .editorial-headline {
-    font-size: clamp(2.8rem, 12vw, 4.5rem) !important; /* Large Bold Headline */
-    line-height: 0.95 !important;
-    letter-spacing: -0.05em !important;
-    color: var(--text-color) !important; /* Solid black/text color */
-    margin-bottom: 2rem !important;
+    font-size: clamp(2.8rem, 12vw, 4.5rem) !important;
+    line-height: 0.9 !important;
+    letter-spacing: -0.06em !important;
+    mix-blend-mode: difference !important;
+    color: white !important; /* Flips color over dark image */
+    margin-bottom: 2.5rem !important;
     text-align: left !important;
+    pointer-events: auto;
   }
-
 
   .hero-text p {
     font-size: 1.1rem !important;
     margin: 0 0 2.5rem 0 !important;
-    max-width: 90% !important;
+    max-width: 95% !important;
     text-align: left !important;
     color: var(--text-color) !important;
     mix-blend-mode: normal !important;
+    pointer-events: auto;
   }
 
-  /* Frame Accents */
-  .hero-frame-accents {
-    display: flex !important;
-    justify-content: space-between;
-    position: absolute;
-    top: 180px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    pointer-events: none;
-    z-index: 50;
-  }
-
-  .frame-left, .frame-right {
-    font-family: var(--font-sans);
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    opacity: 0.3;
-    white-space: nowrap;
-  }
-
-  .frame-left {
-    transform: rotate(90deg) translateX(-50%);
-    transform-origin: left top;
-    margin-left: 15px;
-  }
-
-  .frame-right {
-    transform: rotate(-90deg) translateX(50%);
-    transform-origin: right top;
-    margin-right: 15px;
-  }
-
-  /* 2. The Disruption (Chat Sequence) */
-  .chaos-stack {
-    padding: 60px 0 !important;
-    gap: 30px !important;
-    display: flex !important;
-    flex-direction: column !important;
-  }
-
-  /* 2.5 Portfolio (Projects Grid) Fix */
-  .projects-grid {
-    grid-template-columns: 1fr !important; /* Single column for luxury focus */
-    gap: 60px !important;
-    margin: 0 -20px !important; /* Full bleed image container */
-    width: calc(100% + 40px) !important;
-  }
-
-  .project-card {
-    margin-top: 0 !important; /* Remove desktop offsets */
-  }
-
-  .project-visual {
-    border-radius: 0 !important; /* Magazine edge-to-edge */
-    height: 70vw !important;
-  }
-
-  .project-info {
-    padding: 30px 20px !important; /* Add padding back to text info */
-  }
-
-  .project-desc {
-    max-width: 100% !important;
-  }
-
-  .dm-bubble {
-
-    max-width: 80% !important;
-    padding: 15px 20px !important;
-    font-size: 0.9rem !important;
-    opacity: 0; /* Hidden initially for JS animation */
-    transform: translateY(20px);
-  }
-
+  /* 2. Polished DM Story */
   .client-bubble {
     align-self: flex-start !important;
-    border: 1px solid rgba(0,0,0,0.1) !important;
+    border: 1px solid #f1f1f1 !important; /* Polished border */
     background: white !important;
     color: var(--text-color) !important;
     border-radius: 20px 20px 20px 2px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03) !important; /* Soft shadow */
   }
 
   .brand-bubble {
-    align-self: flex-end !important;
-    background: var(--text-color) !important;
-    color: white !important;
-    border-radius: 20px 20px 2px 20px !important;
-    font-weight: 500 !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
   }
 
-  .screenshot.client-bubble {
-    width: 60% !important;
-    aspect-ratio: 4/3;
-  }
-
-  /* 3. Portfolio & Lookbook Full-Bleed */
-  .lookbook-section {
-    padding: 80px 0 !important;
-  }
-
-  .lookbook-container {
-    padding: 0 !important; /* Full bleed impact */
+  /* 3. Full-Bleed Portfolio (Major Moves) */
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2px !important; /* Magazine tight gap */
     margin: 0 -20px !important;
     width: calc(100% + 40px) !important;
   }
 
-  .lookbook-track {
-    gap: 2px !important; /* Minimal gap for magazine feel */
+  .project-card {
+    position: relative !important;
+    margin-top: 0 !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
   }
 
-  .lookbook-item {
-    flex: 0 0 100vw !important; /* One image per view */
+  .project-visual {
+    height: 100vw !important; /* Square magazine impact */
+    border-radius: 0 !important;
   }
 
-  .lookbook-info {
-    bottom: 20px !important;
-    left: 20px !important;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    padding: 15px;
-    border-radius: 2px;
-    width: fit-content;
+  .project-info {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    padding: 25px 20px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(15px) saturate(180%) !important; /* High-end glass */
+    -webkit-backdrop-filter: blur(15px) saturate(180%) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    z-index: 10 !important;
   }
 
-  .l-title {
-    font-size: 1.1rem !important;
+  .project-info h3 {
+    font-size: 1.5rem !important;
+    margin-bottom: 5px !important;
     color: white !important;
   }
 
-  /* 4. Services Interactive Drawer */
-  .insights-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 15px !important;
+  .project-desc {
+    font-size: 0.9rem !important;
+    opacity: 0.9 !important;
+    color: white !important;
+    line-height: 1.4 !important;
   }
 
-  .insight-card.glass-accordion {
-    height: auto !important;
-    padding: 25px !important;
-    cursor: pointer;
+  .info-header .category { color: rgba(255,255,255,0.7) !important; }
+
+  /* 4. Architectural Services */
+  .insight-num {
+    font-size: 3.5rem !important;
+    font-weight: 800 !important;
+    opacity: 0.1 !important;
+    -webkit-text-stroke: 1px var(--text-color);
+    color: transparent !important; /* Outline effect */
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
-  .insight-card .card-content {
-    display: none; /* Controlled by JS */
-    padding-top: 20px;
-    opacity: 1 !important;
-    transform: none !important;
+  .insight-card .card-header {
+    position: relative;
+    padding-right: 50px;
   }
 
-  .insight-card.active .card-content {
-    display: block;
-    animation: slideDown 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  .plus-icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    transition: transform 0.4s var(--transition-ease);
   }
 
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+  .insight-card.active .plus-icon {
+    transform: translateY(-50%) rotate(45deg);
   }
 
-  /* 5. Sticky FAB & Technical Polish */
+  /* 5. High-Gloss Sticky Footer & Polish */
   .smart-cta-pill {
-    width: fit-content !important; /* Shortened */
-    max-width: 90% !important;
-    bottom: 30px !important;
-    left: 50% !important;
-    transform: translateY(150px) translateX(-50%) !important;
-    padding: 12px 15px 12px 25px !important;
-    border-radius: 50px !important; /* Pill shape for FAB */
-    white-space: nowrap;
+    background: rgba(0, 0, 0, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2) !important; /* High-gloss / bevel */
   }
 
-  .smart-cta-pill.active {
-    transform: translateY(0) translateX(-50%) !important;
+  .primary-cta-btn, .secondary-cta-btn, .smart-cta-pill {
+    letter-spacing: 1px !important; /* Expensive look */
   }
+}
+
 
 
   /* Micro-interactions */

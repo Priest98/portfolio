@@ -690,7 +690,19 @@ const transformationAnimations = () => {
 const mobileEditorialEnhancements = () => {
   if (window.innerWidth > 1024) return
 
-  // A. Staggered Chat Sequence
+  // A. Parallax Hero Portrait
+  gsap.to('.hero-img', {
+    y: '15%',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero-adam',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  })
+
+  // B. Staggered Chat Sequence with Growth
   const bubbles = document.querySelectorAll('.dm-bubble')
   if (bubbles.length > 0) {
     gsap.to(bubbles, {
@@ -705,28 +717,36 @@ const mobileEditorialEnhancements = () => {
         toggleActions: 'play none none none'
       }
     })
+
+    // Specialized growth for brand bubbles
+    const brandBubbles = document.querySelectorAll('.brand-bubble')
+    brandBubbles.forEach(b => {
+      gsap.to(b, {
+        scale: 1.1,
+        duration: 1,
+        ease: 'elastic.out(1, 0.5)',
+        scrollTrigger: {
+          trigger: b,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      })
+    })
   }
 
-  // B. Interactive Service Drawer (Click-based)
+  // C. Interactive Service Drawer (Click-based)
   const serviceCards = document.querySelectorAll('.insight-card.glass-accordion')
   serviceCards.forEach(card => {
     card.addEventListener('click', () => {
-      // Toggle current card
       const isActive = card.classList.contains('active')
-      
-      // Close others (Optional, for 'clean' feel)
       serviceCards.forEach(c => c.classList.remove('active'))
-      
-      if (!isActive) {
-        card.classList.add('active')
-      }
+      if (!isActive) card.classList.add('active')
     })
   })
 
-  // C. Sticky FAB Visibility (After 'Problem' section)
+  // D. Sticky FAB Visibility (After 'The Reality' Section)
   const smartCta = document.getElementById('smart-cta')
   if (smartCta) {
-    // Reset any desktop triggers if necessary, but here we just add a new one
     ScrollTrigger.create({
       trigger: '#disruption',
       start: 'bottom center',
@@ -737,6 +757,7 @@ const mobileEditorialEnhancements = () => {
 }
 
 mobileEditorialEnhancements()
+
 
 transformationAnimations()
 
