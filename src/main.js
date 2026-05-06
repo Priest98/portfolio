@@ -692,15 +692,16 @@ const mobileEditorialEnhancements = () => {
 
   // A. Parallax Hero Portrait
   gsap.to('.hero-img', {
-    y: '15%',
+    y: '25%', /* More distance for slower, deeper feel */
     ease: 'none',
     scrollTrigger: {
       trigger: '.hero-adam',
       start: 'top top',
       end: 'bottom top',
-      scrub: true
+      scrub: 1.2 /* Smoother scrub */
     }
   })
+
 
   // B. Staggered Chat Sequence with Growth
   const bubbles = document.querySelectorAll('.dm-bubble')

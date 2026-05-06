@@ -2516,9 +2516,21 @@ section {
 
   /* 1. Hero Editorial Overlap & Depth */
   .hero-adam {
-    padding-top: 100px !important;
+    padding-top: 80px !important;
     text-align: left !important;
     overflow: visible !important;
+    position: relative;
+  }
+
+  /* Grain Overlay (2% Opacity) */
+  .hero-adam::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    opacity: 0.02;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
   
   .hero-layout {
@@ -2526,6 +2538,11 @@ section {
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 0 !important;
+  }
+
+  .hero-availability {
+    margin-bottom: 0 !important; /* Tighten Gap */
+    padding-bottom: 10px;
   }
   
   .hero-image-wrap { 
@@ -2539,7 +2556,7 @@ section {
   }
 
   .hero-img {
-    height: 120% !important; /* Extra height for parallax */
+    height: 125% !important; /* Extra height for slower parallax */
     width: 100% !important;
     object-fit: cover !important;
     object-position: center top !important;
@@ -2548,33 +2565,44 @@ section {
   .hero-text {
     position: relative;
     z-index: 100;
-    margin-top: -30px !important; /* Architectural Overlap */
+    margin-top: -80px !important; /* Deep Editorial Overlap */
     background: transparent !important;
     width: 100% !important;
     padding: 0 !important;
-    pointer-events: none; /* Let clicks pass to images if needed */
+    pointer-events: none;
   }
 
   .editorial-headline {
     font-size: clamp(2.8rem, 12vw, 4.5rem) !important;
-    line-height: 0.9 !important;
+    line-height: 0.85 !important;
     letter-spacing: -0.06em !important;
-    mix-blend-mode: difference !important;
-    color: white !important; /* Flips color over dark image */
+    mix-blend-mode: exclusion !important; /* High-contrast flipping */
+    color: white !important;
     margin-bottom: 2.5rem !important;
     text-align: left !important;
     pointer-events: auto;
   }
 
+  .editorial-headline .italic {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.1em !important; /* Bolder/Larger Hook */
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+  }
+
   .hero-text p {
     font-size: 1.1rem !important;
     margin: 0 0 2.5rem 0 !important;
-    max-width: 95% !important;
+    width: 85% !important; /* Columnated sub-text */
+    max-width: none !important;
     text-align: left !important;
     color: var(--text-color) !important;
     mix-blend-mode: normal !important;
     pointer-events: auto;
+    line-height: 1.5;
   }
+
 
   /* 2. Polished DM Story */
   .client-bubble {
