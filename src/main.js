@@ -57,37 +57,46 @@ if (document.querySelector('.scroll-progress')) {
 
 // 2. HERO SECTION ENHANCEMENT
 window.addEventListener('load', () => {
-  const heroTl = gsap.timeline({ defaults: { ease: 'expo.out' } })
+  const heroTl = gsap.timeline({ defaults: { ease: 'cubic-bezier(0.25, 1, 0.5, 1)' } })
 
-  // Ensure elements are prepared for animation
-  const heroElements = ['.hero-layout', '.reveal-text', '.hero-text p', '.hero-btns .btn-underline', '.hero-image-wrap', '.reveal']
+  // Ensure elements are prepared
+  const heroElements = ['.hero-layout', '.hero-text p', '.hero-btns .btn-underline', '.hero-image-wrap', '.reveal']
   gsap.set(heroElements, { autoAlpha: 1, visibility: 'visible' })
 
-  heroTl.from('.reveal-text', {
-    y: 80,
-    opacity: 0,
-    duration: 1.8,
+  // A. Magazine Reveal (Headline)
+  heroTl.to('.mask-line span', {
+    y: 0,
+    duration: 1.2,
     stagger: 0.2,
-  }, 0.2)
+  }, 0.5)
+
+  // B. Focus Shift (Italics)
+  heroTl.to('.focus-reveal', {
+    opacity: 1,
+    filter: 'blur(0px)',
+    letterSpacing: '2px',
+    duration: 1.5,
+    ease: 'power2.out'
+  }, '-=0.8')
 
   heroTl.from('.hero-text p', {
-    y: 40,
-    opacity: 0,
-    duration: 1.5,
-  }, '-=1.2')
-
-  heroTl.from('.hero-btns .btn-underline', {
-    scale: 0.8,
+    y: 30,
     opacity: 0,
     duration: 1.2,
-    stagger: 0.15,
   }, '-=1')
 
-  heroTl.from('.hero-image-wrap', {
-    x: 50,
+  heroTl.from('.hero-btns .btn-underline', {
+    y: 20,
     opacity: 0,
-    duration: 2.2,
-  }, 0.5)
+    duration: 1,
+    stagger: 0.1,
+  }, '-=0.8')
+
+  heroTl.from('.hero-image-wrap', {
+    scale: 1.05,
+    opacity: 0,
+    duration: 2,
+  }, 0.2)
 
   // Hero Image Parallax
   const heroImg = document.querySelector('.hero-img')
@@ -690,18 +699,20 @@ const transformationAnimations = () => {
 const mobileEditorialEnhancements = () => {
   if (window.innerWidth > 1024) return
 
-  // A. Parallax Hero Portrait
-  gsap.to('.hero-img', {
-    y: '25%', /* More distance for slower, deeper feel */
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.hero-adam',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1.2 /* Smoother scrub */
-    }
+  // A. Image Parallax (80% Speed)
+  const parallaxImages = document.querySelectorAll('.hero-img, .project-visual img')
+  parallaxImages.forEach(img => {
+    gsap.to(img, {
+      yPercent: 20, // Subtle movement relative to 100% scroll
+      ease: 'none',
+      scrollTrigger: {
+        trigger: img.parentElement,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      }
+    })
   })
-
 
   // B. Staggered Chat Sequence with Growth
   const bubbles = document.querySelectorAll('.dm-bubble')
@@ -709,30 +720,32 @@ const mobileEditorialEnhancements = () => {
     gsap.to(bubbles, {
       opacity: 1,
       y: 0,
-      stagger: 0.3,
-      duration: 0.8,
-      ease: 'power2.out',
+      stagger: 0.5, // Narrative timing
+      duration: 1,
+      ease: 'power3.out',
       scrollTrigger: {
         trigger: '.disruption-section',
-        start: 'top 40%',
+        start: 'top 60%',
         toggleActions: 'play none none none'
       }
     })
 
-    // Specialized growth for brand bubbles
-    const brandBubbles = document.querySelectorAll('.brand-bubble')
-    brandBubbles.forEach(b => {
-      gsap.to(b, {
-        scale: 1.1,
-        duration: 1,
-        ease: 'elastic.out(1, 0.5)',
-        scrollTrigger: {
-          trigger: b,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
+    // Weighted growth for the final black bubble
+    const finalBubble = document.querySelector('.brand-bubble:last-child')
+    if (finalBubble) {
+      gsap.fromTo(finalBubble, 
+        { scale: 0.9 },
+        {
+          scale: 1,
+          duration: 1.2,
+          ease: 'elastic.out(1, 0.5)',
+          scrollTrigger: {
+            trigger: finalBubble,
+            start: 'top 85%',
+          }
         }
-      })
-    })
+      )
+    }
   }
 
   // C. Interactive Service Drawer (Click-based)
@@ -745,7 +758,22 @@ const mobileEditorialEnhancements = () => {
     })
   })
 
-  // D. Sticky FAB Visibility (After 'The Reality' Section)
+  // D. Tactile Micro-interactions
+  const tactileBtns = document.querySelectorAll('.primary-cta-btn, .smart-cta-pill, .btn-underline')
+  tactileBtns.forEach(btn => {
+    btn.addEventListener('touchstart', () => {
+      gsap.to(btn, { x: 5, duration: 0.3, ease: 'power2.out' })
+      const icon = btn.querySelector('i, svg')
+      if (icon) gsap.to(icon, { x: 5, duration: 0.3 })
+    })
+    btn.addEventListener('touchend', () => {
+      gsap.to(btn, { x: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' })
+      const icon = btn.querySelector('i, svg')
+      if (icon) gsap.to(icon, { x: 0, duration: 0.5 })
+    })
+  })
+
+  // E. Sticky FAB Visibility
   const smartCta = document.getElementById('smart-cta')
   if (smartCta) {
     ScrollTrigger.create({

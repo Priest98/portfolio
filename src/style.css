@@ -1,6 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
 
-:root {
+/* --- NEW ANIMATION FOUNDATIONS --- */
+.mask-line {
+  overflow: hidden;
+  display: block;
+}
+
+.mask-line span {
+  display: block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+.focus-reveal {
+  opacity: 0;
+  filter: blur(10px);
+  letter-spacing: -2px;
+  display: inline-block;
+}
+
+/* Chat Bubble Initial States */
+.dm-bubble {
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: transform, opacity;
+}
+
+/* Parallax Depth Helper */
+.parallax-layer {
+  will-change: transform;
+}
+
+/* --- END ANIMATION FOUNDATIONS --- */
   --bg-color: #FFFFFF;
   --text-color: #0D0D0D;
   --text-muted: #666666;
